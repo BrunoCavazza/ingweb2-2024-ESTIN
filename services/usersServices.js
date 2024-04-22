@@ -16,10 +16,9 @@ class UsersServices {
     }
 
     async createUser(email, password){
-
-        const usersRepository = appDataSource.getRepository(Users)
-        usersRepository.save({email, password})
-
+        const usersRepository = appDataSource.getRepository(Users);
+        const user = usersRepository.save({email, password});
+        return user;
     }
 }
 
