@@ -1,3 +1,6 @@
+const appDataSource = require("../database/appSourceDataBase");
+const Users = require("../database/models/Users");
+
 class UsersServices {
 
     getUserById(id){
@@ -10,6 +13,13 @@ class UsersServices {
         } else {
             throw new Error('No existe')
         }
+    }
+
+    async createUser(email, password){
+
+        const usersRepository = appDataSource.getRepository(Users)
+        usersRepository.save({email, password})
+
     }
 }
 
