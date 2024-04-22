@@ -1,8 +1,7 @@
-// models/Account.js
 var EntitySchema = require("typeorm").EntitySchema;
 
 module.exports = new EntitySchema({
-    name: "Users",
+    name: "Tranfers",
     columns: {
         id: {
             primary: true,
@@ -17,17 +16,5 @@ module.exports = new EntitySchema({
             type: "timestamp",
             updateDate: true
         },
-        email: {
-            type: "varchar",
-            nullable: false
-        },
-        password:{
-            type: "varchar",
-            nullable: false
-        },
-        name: {
-            type: "varchar",
-            nullable: true
-        }
     }
 });

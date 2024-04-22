@@ -19,7 +19,7 @@ appDataSource.initialize()
       //Publico
       app.use(allRouter);
       app.use(router);
-      
+          
       app.listen(port, () => {
           console.log(`App running on PORT: ${port}`);
       });
@@ -27,3 +27,5 @@ appDataSource.initialize()
   .catch((error) => {
       console.error('Failed to establish database connection', error);
   });
+
+  

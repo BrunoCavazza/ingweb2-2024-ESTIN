@@ -1,6 +1,6 @@
 const { DataSource } = require('typeorm');
 
-const connectJson = {
+const appDataSource = new DataSource({
    "type": "postgres",
    "host": "localhost",
    "port": 5432,
@@ -11,14 +11,8 @@ const connectJson = {
    "logging": false,
    "entities": [
         require("./models/Users"),
-        require("./models/Transfers"),
+        require("./models/Tranfers"),
    ],
-}
-
-if(process.env.ENVIROMENT == 'dev'){
-   delete connectJson.ssl;
-}
-
-const appDataSource = new DataSource(connectJson);
+});
 
 module.exports = appDataSource;
