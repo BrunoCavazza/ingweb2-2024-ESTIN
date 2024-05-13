@@ -32,6 +32,20 @@ body { /* Fondo animado*/
     }
 }
 
+.pixel_font{
+    font-family: "VT323", monospace;
+    color: #ffffff;
+    position: relative;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin-left: 30%;
+    font-size: 400%; 
+}
+
+.login{
+    margin-top: 18px;
+    margin-left: 100px;
+}
 
 .contenedor {
     display: flex;
@@ -57,6 +71,7 @@ body { /* Fondo animado*/
     width: 70%;
     background-color: #1E0022;
     height: 10vh;
+    
 }
 
 .column_categories{
@@ -64,6 +79,7 @@ body { /* Fondo animado*/
     height: 65vh;
     background-color: #1E0022;
     border-radius: 0 20px 0 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 /* EL CUBO OLAP */
@@ -76,10 +92,10 @@ body { /* Fondo animado*/
     }
   }
   
+  
   .cubo_contenedor {
     position: relative;
-    right: -280px;
-    top: -30px;
+    right: -50%;
     transform: skewY(-20deg);
     animation: animate 5s linear infinite;
 }
@@ -102,7 +118,7 @@ body { /* Fondo animado*/
         position: absolute;
         display: flex;
         flex-direction: column;
-        gap: 15px; 
+        gap: 10px; 
         translate: calc(-35px * var(--x)) calc(-30px * var(--y)); 
         span {
             position: relative;
