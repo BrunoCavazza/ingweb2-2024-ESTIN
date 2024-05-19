@@ -1,5 +1,11 @@
-const appDataSource = require("../database/appSourceDataBase");
+/*const appDataSource = require("../database/appSourceDataBase");
 const Users = require("../database/models/Users");
+
+//ESTO ES DEL PROFE 
+//ESTO ES DEL PROFE 
+//ESTO ES DEL PROFE 
+//ESTO ES DEL PROFE 
+//ESTO ES DEL PROFE 
 
 class UsersServices {
 
@@ -35,4 +41,4 @@ class UsersServices {
     }
 }
 
-module.exports = new UsersServices();
+module.exports = new UsersServices();*/

@@ -1,6 +1,10 @@
-const usersServices = require("./usersServices");
+/*const usersServices = require("./usersServices");
 
-
+//ESTO ES DEL PROFE 
+//ESTO ES DEL PROFE 
+//ESTO ES DEL PROFE 
+//ESTO ES DEL PROFE 
+//ESTO ES DEL PROFE 
 
 class AuthServices{
 
@@ -37,4 +41,4 @@ class AuthServices{
 
 }
 
-module.exports = new AuthServices();
+module.exports = new AuthServices();*/
