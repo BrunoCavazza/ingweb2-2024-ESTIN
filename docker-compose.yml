@@ -5,9 +5,9 @@ services:
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_DB: mydatabase
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: alejandros
+      POSTGRES_DB: estindb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
       - db-data:/var/lib/postgresql/data
     ports:
