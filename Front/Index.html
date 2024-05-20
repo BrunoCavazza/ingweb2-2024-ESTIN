@@ -11,8 +11,6 @@
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <!-- Enlaces a hojas de estilo CSS -->
   <link rel="stylesheet" href="styles.css">
-  <!-- Enlaces a scripts JavaScript -->
-  <script src="script.js" defer></script>
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -205,7 +203,7 @@
                 </div>
               </button>
 
-              <!-- Modal -->
+              <!-- Modal login -->
               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
@@ -213,17 +211,17 @@
 
                     <div class="login-box">
 
-                      <form>
+                      <form id="loginForm">
                         <div class="user-box">
-                          <input type="text" name="" required="">
+                          <input type="text" name="" required="" id="loginUsername">
                           <label class="pixel_font">Username</label>
                         </div>
                         <div class="user-box">
-                          <input type="password" name="" required="">
-                          <label class="pixel_font">Password</label>
+                          <input type="password" name="" required="" id="loginPassword">
+                          <label class="pixel_font" >Password</label>
                         </div>
                         <center>
-                          <a href="/login" class="pixel_font">
+                          <a type="submit" id="loginButton" class="pixel_font">
                             SEND
                             <span></span>
                           </a>

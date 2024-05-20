@@ -10,7 +10,7 @@ const authentication = async (req, res) =>{
     try {
         const username = req.body.username;
         const password = req.body.password;
-
+        console.log(req.body)
         const provider = await providerService.getProviderByUsername(username);
         if (!provider){
             const customer = await customerService.getCustomerByUsername(username);
