@@ -1,3 +1,4 @@
+
 const {DataTypes} = require('sequelize');
 const {sequelize} = require('../models')
 const User = require('../models/users')(sequelize, DataTypes);

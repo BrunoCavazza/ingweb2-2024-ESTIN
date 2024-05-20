@@ -2,9 +2,11 @@ const Games = require('../models/games');
 
 
 class AddGameServices{
+
     constructor(){
 
     }
+
 
     async createGame(game){
         const newGame = new Games();
@@ -13,5 +15,5 @@ class AddGameServices{
     }
 
 }
-
 module.exports = AddGameServices;
+
