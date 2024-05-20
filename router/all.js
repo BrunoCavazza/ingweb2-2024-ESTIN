@@ -7,8 +7,11 @@ const router = express.Router();
 const addGame = require("./addGame.router");
 //const accountManager = require("./accountManager.router");
 const login = require("./login.router");
+const register = require("./register.router");
 
 router.use(login)
+router.use(register)
+
 //router.use("/addGame", addGame)
 
 module.exports = router;

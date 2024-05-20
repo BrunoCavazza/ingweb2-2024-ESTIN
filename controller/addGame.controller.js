@@ -1,7 +1,6 @@
 const AddGameServices = require('../services/addGame.services');
 const addGame = new AddGameServices();
 
-
 const create = async (req, res) =>{
     try {
         //aca ver que pingo pongo

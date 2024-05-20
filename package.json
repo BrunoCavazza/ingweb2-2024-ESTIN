@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "migrate": "npx sequelize-cli db:migrate --url 'postgres://postgres:postgres@localhost:5432/estindb'",
+    "undomigrate": "npx sequelize-cli db:migrate:undo --url 'postgres://postgres:postgres@localhost:5432/estindb'",
     "start": "nodemon ./app.js localhost",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

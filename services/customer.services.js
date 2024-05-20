@@ -1,6 +1,4 @@
-
 const Sequelize = require('sequelize')
-
 const User = require('../models/users')
 
 class CustomerServices {
@@ -18,6 +16,9 @@ class CustomerServices {
     }
 
     
+
+
+
 
 
 }

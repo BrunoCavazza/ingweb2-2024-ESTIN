@@ -6,7 +6,7 @@ const {generateToken} = require("../utils/jwt");
 const {hashPassword, verifyPassword} = require("../utils/hasherandverifier");
 
 const authentication = async (req, res) =>{
-
+    
     try {
         const username = req.body.username;
         const password = req.body.password;
@@ -14,11 +14,10 @@ const authentication = async (req, res) =>{
         const provider = await providerService.getProviderByUsername(username);
         if (!provider){
             const customer = await customerService.getCustomerByUsername(username);
-
             if(!seller){
                 //testear que error sale aca
                 console.log(res);
-                return res.status(401).json({message: "Usuario no encontrado"});
+                return res.status(401).json({message: "Usuario " + req.body.username + " no encontrado"});
 
             }
             const verifyPassword = await customerService.verifyPassword(customer.password, password);
