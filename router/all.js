@@ -1,30 +1,17 @@
-var express = require('express');
-var router = express.Router();
-const authServices = require('../services/authServices');
-const usersServices = require('../services/usersServices');
+const express = require('express');
+const router = express.Router();
 
-router.post('/login',  async function (req, res, next) {
-    try {
-        console.log('req:',req.body)
-        const {username, password } = req.body
-        const user = await authServices.login(username, password);
-        console.log('user_c',user);
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
+//const library = require("./library.router");
+//const transaction = require("./transaction.router");
+//const gameScreen = require("./gameScreen.router");
+const addGame = require("./addGame.router");
+//const accountManager = require("./accountManager.router");
+const login = require("./login.router");
+const register = require("./register.router");
 
-router.post('/sign-up', function (req, res, next) {
-    try {
-        console.log('req:',req.body)
-        const {email, password } = req.body
-        const user = usersServices.createUser(email, password);
-        res.status(200).json(user);
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
+router.use(login)
+router.use(register)
 
+//router.use("/addGame", addGame)
 
 module.exports = router;
