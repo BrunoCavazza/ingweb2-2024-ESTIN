@@ -32,6 +32,8 @@ body { /* Fondo animado*/
   }
 }
 
+/* Estilos bases*/
+
 .pixel_font_title{
   font-family: "VT323", monospace;
   color: #ffffff;
@@ -106,6 +108,13 @@ padding-top: 5vh;
 padding-left: 10%;
 padding-right: 10%;
 height: 10vh;
+}
+.bigFrame{
+  padding-top: 3%;
+  padding-left: 2%;
+  padding-right: 2%;
+  height: 90vh;
+  background: transparent;
 }
 /* Categorias */
 
