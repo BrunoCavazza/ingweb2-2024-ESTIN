@@ -9,9 +9,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      user_id: {
-        type: Sequelize.BIGINT
-      },
       game_id: {
         type: Sequelize.BIGINT
       },

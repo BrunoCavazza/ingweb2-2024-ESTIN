@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.hasOne(sequelize.models.Library, {foreignKey: 'user_id'})
+      
     }
   }
   Users.init({
@@ -20,7 +21,6 @@ module.exports = (sequelize, DataTypes) => {
     wallet_id: DataTypes.BIGINT,
     funds: DataTypes.BIGINT,
     status: DataTypes.BIGINT,
-    library_id: DataTypes.BIGINT
   }, {
     sequelize,
     modelName: 'Users',

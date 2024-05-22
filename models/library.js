@@ -1,3 +1,5 @@
+const Users = require('./users')
+
 'use strict';
 const {
   Model
@@ -9,17 +11,24 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+
+  
+      static associate(models) {
+        this.belongsTo(models.Users, { foreignKey: 'user_id' });
+      }
       // define association here
-    }
+    
   }
   Library.init({
-    user_id: DataTypes.BIGINT,
     game_id: DataTypes.BIGINT,
     buy_timestamp: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Library',
-  });
+  }
+  );
+  
   return Library;
 };
+
+

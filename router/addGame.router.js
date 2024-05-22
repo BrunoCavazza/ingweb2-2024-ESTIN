@@ -4,4 +4,6 @@ const addGameController = require('../controller/addGame.controller')
 
 router
     .post('/createGame', addGameController.create)
+
+module.exports = router;
     

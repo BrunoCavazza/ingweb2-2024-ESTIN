@@ -11,6 +11,7 @@ const register = require("./register.router");
 
 router.use(login)
 router.use(register)
+router.use(addGame)
 
 //router.use("/addGame", addGame)
 

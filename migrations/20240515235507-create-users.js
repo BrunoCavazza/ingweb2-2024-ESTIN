@@ -12,6 +12,9 @@ module.exports = {
       username: {
         type: Sequelize.STRING
       },
+      password: {
+        type: Sequelize.STRING
+      },
       role: {
         type: Sequelize.STRING
       },
@@ -22,9 +25,6 @@ module.exports = {
         type: Sequelize.BIGINT
       },
       status: {
-        type: Sequelize.BIGINT
-      },
-      library_id: {
         type: Sequelize.BIGINT
       },
       createdAt: {

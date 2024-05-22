@@ -21,6 +21,9 @@ module.exports = {
       pictures: {
         type: Sequelize.STRING
       },
+      prize: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

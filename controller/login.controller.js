@@ -14,7 +14,7 @@ const authentication = async (req, res) =>{
         const provider = await providerService.getProviderByUsername(username);
         if (!provider){
             const customer = await customerService.getCustomerByUsername(username);
-            if(!seller){
+            if(!customer){
                 //testear que error sale aca
                 console.log(res);
                 return res.status(401).json({message: "Usuario " + req.body.username + " no encontrado"});
