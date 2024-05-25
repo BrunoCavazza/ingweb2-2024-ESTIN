@@ -1,6 +1,4 @@
-const {DataTypes} = require('sequelize');
-const {sequelize} = require('../models')
-const User = require('../models/users')(sequelize, DataTypes);
+const {PrismaClient} = require('@prisma/client');
 
 class RegisterServices {
 
@@ -9,9 +7,10 @@ class RegisterServices {
     }
 
     async createUser(newUserJson){
+        prisma = new PrismaClient();
 
         console.log(newUserJson)
-        const createResponse = await User.findOrCreate({
+        const newUser = await prisma.users.create({
             where: {
                 username: newUserJson.username
             },

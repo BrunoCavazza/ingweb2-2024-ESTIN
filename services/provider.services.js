@@ -1,6 +1,5 @@
-const {DataTypes} = require('sequelize');
-const {sequelize} = require('../models')
-const User = require('../models/users')(sequelize, DataTypes);
+const {PrismaClient} = require('@prisma/client');
+
 
 class ProviderServices {
 
@@ -10,7 +9,8 @@ class ProviderServices {
 
     async getProviderByUsername(username){
 
-        const provider = await User.findOne({
+        const prisma = new PrismaClient();
+        const provider = await prisma.provider.findUnique({
             where: {
                 username: username
             }

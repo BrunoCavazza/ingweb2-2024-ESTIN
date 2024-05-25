@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Users{
+  id                Int @id @default(autoincrement())
+  username          String @unique
+  password          String
+  role              String
+  status            Int
+  wallet_id         Int
+  funds             Int
+  libraries         Libraries?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt 
+}
+
+model Libraries{
+  id                Int @id @default(autoincrement())
+  user              Users @relation(fields: [user_id], references: [id])
+  user_id           Int @unique
+  games_id          GamesOnLibrary[]
+  buy_timestamp     DateTime
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt 
+}
+
+model Games{
+  id                Int @id @default(autoincrement())
+  name              String
+  price             Int
+  description       String
+  owner             String
+  libraries         GamesOnLibrary[]
+  categories        CategoriesOnGames[]
+  mainPicture       String
+  pictures          String[] 
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt 
+}
+
+model Categories{
+  id                Int @id @default(autoincrement())
+  name              String
+  games             CategoriesOnGames[]
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt 
+}
+
+model CategoriesOnGames{
+  id                Int @id @default(autoincrement())
+  games             Games @relation(fields: [game_id], references: [id])
+  game_id           Int
+  categories        Categories @relation(fields: [category_id], references: [id])
+  category_id       Int 
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt 
+}
+
+model GamesOnLibrary{
+  id                Int @id @default(autoincrement())
+  games             Games @relation(fields: [game_id], references: [id])
+  game_id           Int
+  libraries         Libraries @relation(fields: [library_id], references: [id])
+  library_id        Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt 
+}

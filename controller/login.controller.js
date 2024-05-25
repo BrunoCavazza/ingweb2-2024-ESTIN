@@ -15,10 +15,7 @@ const authentication = async (req, res) =>{
         if (!provider){
             const customer = await customerService.getCustomerByUsername(username);
             if(!customer){
-                //testear que error sale aca
-                console.log(res);
                 return res.status(401).json({message: "Usuario " + req.body.username + " no encontrado"});
-
             }
             const verifyPassword = await customerService.verifyPassword(customer.password, password);
             if(!verifyPassword){
