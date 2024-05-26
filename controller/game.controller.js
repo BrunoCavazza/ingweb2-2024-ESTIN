@@ -39,4 +39,30 @@ const getAll = async (req, res) =>{
         res.status(500).send({message: error.message});
     }
 }
-module.exports = {create, filterCategory, filterText, getAll};
+
+
+const generateTransaction = async (req, res) => {
+
+    try {
+        const successTransac = await game.transaction(req.body.senderId, req.body.receiverId, req.body.amount);
+        if (successTransac){
+            const response = await game.gameToLibrary(req.body.senderId)
+                if (response){
+                    res.json({message: 'Transaccion realizada', data: response});
+                }else{
+                    res.status(401).json({message: "No se pudo realizar la adicion del juego; transaccion fallida."})
+                }
+
+        }else{
+            res.status(401).json({message: "No se pudo realizar la transaccion."});
+        }
+    } catch (error) {
+        res.status(500).send({message: error.message});
+    }
+
+
+}
+
+
+
+module.exports = {create, filterCategory, filterText, getAll, generateTransaction};

@@ -1,12 +1,23 @@
-const TransactionServices = require('../services/transaction.services');
+/*const TransactionServices = require('../services/transaction.services');
 const transaction = new TransactionServices();
 
 const generateTransaction = async (req, res) => {
-    try {
-        const response = await transaction.transaction(req.token.senderId, req.body.receiverId, req.body.amount);
+    console.log(token)
 
-        res.json({message: 'Transaccion realizada', data: response});
+    try {
+        const successTransac = await transaction.transaction(req.token.senderId, req.body.receiverId, req.body.amount);
+        if (successTransac){
+            const successAddition = await transaction.gameToLibrary(req.token.id)
+            res.json({message: 'Transaccion realizada', data: response});
+
+        }else{
+            res.status(401).json({message: "No se pudo realizar la transaccion."});
+        }
     } catch (error) {
         res.status(500).send({message: error.message});
     }
+
+
 }
+
+module.exports = {generateTransaction};*/

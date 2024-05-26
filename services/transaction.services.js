@@ -4,9 +4,9 @@ class TransactionServices{
     constructor(){
     }
 
-
     async transaction(senderId, receiverId, amount){
         const prisma = new PrismaClient.PrismaClient();
+                
         try {
             const senderAcc = await prisma.users.update({
                 where: {
@@ -41,3 +41,5 @@ class TransactionServices{
 
 
 }
+
+module.exports = TransactionServices;

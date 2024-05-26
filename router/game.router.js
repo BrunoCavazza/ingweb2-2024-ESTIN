@@ -7,6 +7,7 @@ router
     .get('/category', gameController.filterCategory)
     .get('/filter', gameController.filterText)
     .get('/', gameController.getAll)
+    .post('/buyGame', gameController.generateTransaction)
 
 module.exports = router;
     

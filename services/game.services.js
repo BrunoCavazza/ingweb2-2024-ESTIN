@@ -20,7 +20,7 @@ class GameServices{
                 owner: newGame.owner,
                 mainPicture: newGame.mainPicture,
                 pictures: newGame.pictures,
-                categories: newGame.categoryies
+                categories: newGame.categories
             }
         });
 
@@ -51,6 +51,58 @@ class GameServices{
         const prisma = new PrismaClient();
         const game = await prisma.games.findMany();
         return game;
+    }
+
+    async transaction(senderId, receiverId, amount){
+        const prisma = new PrismaClient.PrismaClient();
+                
+        try {
+            const senderAcc = await prisma.users.update({
+                where: {
+                    id: senderId
+                },
+                data: {
+                    funds: {
+                        decrement: amount
+                    }
+                }
+            });
+            const receiverAcc = await prisma.users.update({
+                where: {
+                    id: receiverId
+                },
+                data: {
+                    funds: {
+                        increment: amount
+                    }
+                }
+            });
+            return {
+                sender: senderAcc,
+                receiver: receiverAcc
+            }
+        } catch (error) {
+            console.log(error)
+        }
+        
+        return transaction;
+    }
+
+    async gameToLibrary(userId){
+        const prisma = new PrismaClient();
+        const library = await prisma.library.update({
+            where: {
+                user_id: userId
+            },
+            data: {
+                games: {
+                    connect: {
+                        id: gameId
+                    }
+                }
+            }
+        });
+        return library;
     }
 }
 

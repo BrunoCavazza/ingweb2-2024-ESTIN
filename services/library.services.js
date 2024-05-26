@@ -1,7 +1,9 @@
 const {PrismaClient} = require('@prisma/client');
 
 class LibraryServices{
-    constructor(){}
+    constructor(){
+
+    }
 
     async getUserLibrary(userId){
         const prisma = new PrismaClient();
@@ -41,3 +43,5 @@ class LibraryServices{
     }
 
 }
+
+module.exports = LibraryServices;
