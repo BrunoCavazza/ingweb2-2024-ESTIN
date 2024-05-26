@@ -27,6 +27,16 @@ class GameServices{
 
     }
 
+    async getGameById(name){
+        const prisma = new PrismaClient();
+        const game = await prisma.games.findUnique({
+            where: {
+                name: name
+            }
+        });
+        return game;
+    }
+
     async getGameByName(gameSearch){
         const prisma = new PrismaClient();
         const game = await prisma.games.findMany({
