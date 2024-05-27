@@ -4,41 +4,55 @@ class TransactionServices{
     constructor(){
     }
 
-    async transaction(senderId, receiverId, amount){
+    async buyGame(senderId, receiverId, amount){
         const prisma = new PrismaClient.PrismaClient();
                 
         try {
-            const senderAcc = await prisma.users.update({
-                where: {
-                    id: senderId
-                },
-                data: {
-                    funds: {
-                        decrement: amount
+            const result = await prisma.$transaction([
+                prisma.users.update({
+                    where: {
+                        id: senderId
+                    },
+                    data: {
+                        funds: {
+                            decrement: amount
+                        }
                     }
-                }
-            });
-            const receiverAcc = await prisma.users.update({
-                where: {
-                    id: receiverId
-                },
-                data: {
-                    funds: {
-                        increment: amount
+                }),
+                prisma.users.update({
+                    where: {
+                        id: receiverId
+                    },
+                    data: {
+                        funds: {
+                            increment: amount
+                        }
                     }
-                }
-            });
+                }),
+                prisma.library.update({
+                    where: {
+                        user_id: userId
+                    },
+                    data: {
+                        games: {
+                            connect: {
+                                id: gameId
+                            }
+                        }
+                    }
+                })
+            ]);
+
             return {
-                sender: senderAcc,
-                receiver: receiverAcc
-            }
+                sender: result[0],
+                receiver: result[1],
+                library: result[2]
+            };
+
         } catch (error) {
             console.log(error)
         }
-        
-        return transaction;
     }
-
 
 }
 

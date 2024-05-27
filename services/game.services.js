@@ -27,17 +27,17 @@ class GameServices{
 
     }
 
-    async getGameById(name){
+    async getGameById(gameId){
         const prisma = new PrismaClient();
         const game = await prisma.games.findUnique({
             where: {
-                name: name
+                id: gameId
             }
         });
         return game;
     }
 
-    async getGameByName(gameSearch){
+    /*async getGameByName(gameSearch){
         const prisma = new PrismaClient();
         const game = await prisma.games.findMany({
             where: {
@@ -45,15 +45,29 @@ class GameServices{
             }
         });
         return game;
-    }
+    }*/
 
-    async getGameByCategory(category){
+    /*async getGameByCategory(category){
         const prisma = new PrismaClient();
         const game = await prisma.games.findMany({
             where: {
                 categories: category
             }
         });
+        return game;
+    }*/  
+
+    async getNameByFilter(filters){
+        const prisma = new PrismaClient();
+        const game = await prisma.games.findMany({
+            where: {
+                AND: [
+                    {name: {contains: filters.name}},
+                    {categories: {contains: filters.category}}
+                ]
+            }
+        });
+    
         return game;
     }
 
@@ -63,7 +77,17 @@ class GameServices{
         return game;
     }
 
-    async transaction(senderId, receiverId, amount){
+    async getPagedGames(page){
+        let currentPage = page-1;
+        const prisma = new PrismaClient();
+        const game = await prisma.games.findMany({
+            skip: 0*currentPage,
+            take: 10
+        });
+        return game;
+    }
+
+    /*async transaction(senderId, receiverId, amount){
         const prisma = new PrismaClient.PrismaClient();
                 
         try {
@@ -83,6 +107,7 @@ class GameServices{
                 },
                 data: {
                     funds: {
+                        
                         increment: amount
                     }
                 }
@@ -96,7 +121,7 @@ class GameServices{
         }
         
         return transaction;
-    }
+    }*/
 
     async gameToLibrary(userId){
         const prisma = new PrismaClient();
