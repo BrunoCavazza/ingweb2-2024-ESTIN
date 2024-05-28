@@ -44,6 +44,7 @@ li{
   font-style: normal;
   margin-left: 30%;
   font-size: 400%; 
+  cursor: pointer;
 }
 .pixel_font_cat{
   font-family: "Pixelify Sans", sans-serif;
