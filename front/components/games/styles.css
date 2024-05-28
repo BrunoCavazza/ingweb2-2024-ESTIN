@@ -1,0 +1,211 @@
+body {
+    background: transparent;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    --bs-gutter-x: 0;
+}
+
+.mainGames {
+    max-height: 30%;
+}
+
+.bannerDetails {
+    background-color: #4F0B54;
+
+
+}
+
+.miniImg {
+    margin-bottom: 10%;
+}
+
+.pixelPrice {
+    font-family: "Pixelify Sans", sans-serif;
+    color: #ffffff;
+    position: relative;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 200%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 45px;
+    margin-bottom: 10px;
+}
+
+.pixelTitle {
+    font-family: "Pixelify Sans", sans-serif;
+    color: #ffffff;
+    position: relative;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 200%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gamesTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+    margin-bottom: 10px;
+    height: 100px;
+    width: 500px;
+    background-color: #4F0B54;
+
+}
+
+.gameCard {
+    background-color: #4F0B54;
+    margin-top: 5%;
+}
+
+.GameName {
+    font-family: "Pixelify Sans", sans-serif;
+    color: #ffffff;
+    position: relative;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 150%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.GameDetail {
+    font-family: "Pixelify Sans", sans-serif;
+    color: #ffffff;
+    position: relative;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.GameButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buy {
+    position: relative;
+    margin-top: 10%;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    transition: filter 250ms;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+.shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: hsl(0deg 0% 0% / 0.25);
+    will-change: transform;
+    transform: translateY(2px);
+    transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+
+.edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(to left,
+            hsl(340deg 100% 16%) 0%,
+            hsl(340deg 100% 32%) 8%,
+            hsl(340deg 100% 32%) 92%,
+            hsl(340deg 100% 16%) 100%);
+}
+
+.front {
+    display: block;
+    position: relative;
+    padding: 12px 27px;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    font-family: "Pixelify Sans", sans-serif;
+    color: white;
+    background: hsl(345deg 100% 47%);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+}
+
+.buy:hover {
+    filter: brightness(110%);
+}
+
+.buy:hover .front {
+    transform: translateY(-6px);
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.buy:active .front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+}
+
+.buy:hover .shadow {
+    transform: translateY(4px);
+    transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.buy:active .shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+}
+
+.buy:focus:not(:focus-visible) {
+    outline: none;
+}
+
+/* barra dezplazadorsaas*/
+
+/* Estilo general de la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 10px;
+    /* Ancho de la barra de desplazamiento */
+}
+
+/* Fondo de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+    background: transparent;
+    /* Color de fondo */
+}
+
+/* Estilo del pulgar (la parte que se desplaza) */
+::-webkit-scrollbar-thumb {
+    background: #bf23df;
+    /* Color del pulgar */
+    border-radius: 5px;
+    /* Redondear los bordes */
+}
+
+/* Estilo del pulgar al pasar el ratón */
+::-webkit-scrollbar-thumb:hover {
+    background: #d42aff;
+    /* Color del pulgar al pasar el ratón */
+}
