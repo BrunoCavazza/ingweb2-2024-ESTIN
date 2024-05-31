@@ -17,7 +17,51 @@
   
 </head>
 <body>
-    
+  <div class="container mt-5">
+    <h2 class="pixelFontName">Upload a Game</h2>
+    <form>
+        <div class="form-group MTop">
+            <label for="name "><h4 class="pixelFontName">Name</h4></label>
+            <input type="text" class="form-control pixelFont" id="name" placeholder="Nombre del juego">
+        </div>
+        <div class="form-group MTop">
+            <label for="description"><h4 class="pixelFontName">Desciption</h4></label>
+            <textarea class="form-control pixelFont" id="description" rows="3" placeholder="Descripción del juego"></textarea>
+        </div>
+        <div class="form-group MTop">
+            <label for="price"><h4 class="pixelFontName">Price</h4></label>
+            <input type="number" class="form-control pixelFont" id="price" placeholder="Precio del juego">
+        </div>
+        <div class="form-group MTop">
+            <label for="owner"><h4 class="pixelFontName">Owner</h4></label>
+            <input type="text" class="form-control pixelFont" id="owner" placeholder="Propietario del juego">
+        </div>
+        <div class="form-group MTop">
+            <label for="mainPicture"><h4 class="pixelFontName">Main Image</h4></label>
+            <input type="url" class="form-control pixelFont" id="mainPicture" placeholder="URL de la imagen principal">
+        </div>
+        <div class="form-group MTop">
+            <label for="pictures"><h4 class="pixelFontName">Secondary Images</h4></label>
+            <textarea class="form-control pixelFont" id="pictures" rows="3" placeholder="URLs de imágenes adicionales, separadas por comas"></textarea>
+        </div>
+        <div class="form-group MTop">
+            <label for="categories"><h4 class="pixelFontName">Categories</h4></label>
+            <textarea class="form-control pixelFont" id="categories" rows="3" placeholder="Nombre de las categorias, separadas por comas"></textarea>
+        </div>
+        <div class="sendBtn">      
+          <button class="buy">
+          <span class="shadow"></span>
+          <span class="edge"></span>
+          <span class="front text"> Send
+          </span>
+        </button>
+      </div>
+ 
+    </form>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 
 
 

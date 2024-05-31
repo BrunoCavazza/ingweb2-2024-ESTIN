@@ -35,7 +35,3 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     
 });
-
-function changeIframeSource(url) {
-    document.getElementById('MainContent').src = url;
-}
