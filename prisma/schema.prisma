@@ -19,8 +19,9 @@ model Users{
   password          String
   role              String
   status            Int
-  wallet_id         Int
+  wallet_id         Int @default(autoincrement())
   funds             Int
+  email             String
   libraries         Libraries?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 

@@ -15,6 +15,16 @@ class LibraryServices{
         return library;
     }
 
+    async getProviderGames(ownerId){
+        const prisma = new PrismaClient();
+        const games = await prisma.games.findMany({
+            where: {
+                owner: ownerId
+            }
+        });
+        return games;
+    }
+
     async generateLibrary(userId){
         const prisma = new PrismaClient();
         const library = await prisma.library.create({
