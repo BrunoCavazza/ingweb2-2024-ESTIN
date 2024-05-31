@@ -1,0 +1,124 @@
+body {
+    background: transparent;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.row {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    --bs-gutter-x: 0;
+}
+li{
+    font-family: "Pixelify Sans", sans-serif;
+  }
+.search_txt{
+    font-family: "Pixelify Sans", sans-serif;
+    color: gray;
+  }
+.pixel_font_cat{
+    font-family: "Pixelify Sans", sans-serif;
+    color: #ffffff;
+    position: relative;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 200%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+.busqueda{
+    padding-top: 5vh;
+    padding-left: 10%;
+    padding-right: 10%;
+    margin-bottom: 5vh;
+    height: 10vh;
+    }
+
+.card {
+    width: 100%;
+    height: 85vh;
+    background: #f39e9e00;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    color: #502c57;
+    border-radius: 15px;
+
+    }
+    .card__tags {
+    overflow: auto;
+    height: 90%;
+    }
+    .title {
+    font-weight: 900;
+    font-size: 1.7em;
+    }
+    
+    .tag__name {
+    display: inline-block;
+    color: #fff;
+    font-size: 1.1em;
+    background-color: #580e57;
+    padding: 6px 23px 9px;
+    border-radius: 70em;
+    margin: 8px 6px 8px 0;
+    margin-left: 0px;
+    position: relative;
+    text-transform: lowercase;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    }
+    
+    .tag__name::before,
+    .tag__name::after {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    top: 40%;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+
+    }
+    
+    .tag__name::before {
+    left: 7px;
+    }
+    
+    .tag__name::after {
+    right: 7px;
+    }
+    
+    .tag__name:hover {
+    transform: scale(1.1);
+    background-color: #580e57;
+    }
+    /* barra dezplazadorsaas*/
+
+/* Estilo general de la barra de desplazamiento */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho de la barra de desplazamiento */
+    }
+    
+    /* Fondo de la barra de desplazamiento */
+    ::-webkit-scrollbar-track {
+    background: #ffffff00; /* Color de fondo */
+    }
+    
+    /* Estilo del pulgar (la parte que se desplaza) */
+    ::-webkit-scrollbar-thumb {
+    background: #bf23df; /* Color del pulgar */
+    border-radius: 6px; /* Redondear los bordes */
+    }
+    
+    /* Estilo del pulgar al pasar el ratón */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #d42aff; /* Color del pulgar al pasar el ratón */
+    }
+    
