@@ -44,4 +44,4 @@ const verifyCustomer = (req, res, next) => {
     }
 }
 
-module.expports = {generateToken};
+module.expports = {generateToken, verifyCustomer, verifyProvider};

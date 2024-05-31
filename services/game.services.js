@@ -11,6 +11,7 @@ class GameServices{
         console.log("////////////////////////////////////")
         console.log(newGame)
         console.log(newGame.name)
+        console.log(newGame.categories)
         const prisma = new PrismaClient();
         const game = await prisma.games.create({
             data: {
@@ -123,7 +124,7 @@ class GameServices{
         return transaction;
     }*/
 
-    async gameToLibrary(userId){
+    /*async gameToLibrary(userId){
         const prisma = new PrismaClient();
         const library = await prisma.library.update({
             where: {
@@ -138,7 +139,7 @@ class GameServices{
             }
         });
         return library;
-    }
+    }*/
 }
 
 module.exports = GameServices;
