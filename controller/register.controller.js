@@ -1,6 +1,6 @@
 const RegisterServices = require("../services/register.services");
 const registerService = new RegisterServices();
-const {generateToken} = require("../utils/jwt");
+const {generateToken} = require("../utils/verifyToken.middleware");
 const {hashPassword, verifyPassword} = require("../utils/hasherandverifier");
 
 const accountCreation = async (req, res) =>{

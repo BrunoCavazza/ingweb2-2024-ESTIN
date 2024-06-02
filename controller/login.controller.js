@@ -2,7 +2,7 @@ const ProviderServices = require("../services/provider.services");
 const providerService = new ProviderServices();
 const CustomerServices = require ("../services/customer.services");
 const customerService = new CustomerServices();
-const {generateToken} = require("../utils/jwt");
+const {generateToken} = require("../utils/verifyToken.middleware");
 const {hashPassword, verifyPassword} = require("../utils/hasherandverifier");
 
 const authentication = async (req, res) =>{

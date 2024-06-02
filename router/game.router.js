@@ -1,17 +1,17 @@
 const express = require('express')
 const router = express.Router()
 const gameController = require('../controller/game.controller')
-const transaction = require('../controller/transaction.controller')
-const verifyToken = require("../utils/jwt.js");
-
+const transaction = require('../router/transaction.router')
+const verifyToken = require("../utils/verifyToken.middleware.js");
+const provider = require ("../router/provider.router.js")
 
 router
-    .post('/createGame', verifyToken.verifyProvider , gameController.create)
     .get('/filter', gameController.filter)
     .get('/page', gameController.getGamesPaged)
-    .post('/buyGame', verifyToken.verifyConsumer , transaction.buyGame)
     .get('/:id', gameController.gameScreen)
     
-    
+router.use('/buyGame', verifyToken.verifyCustomer , transaction)
+router.use('/createGame', verifyToken.verifyProvider , provider)
+
 module.exports = router;
     
