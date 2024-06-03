@@ -10,7 +10,7 @@ class ProviderServices {
     async getProviderByUsername(username){
 
         const prisma = new PrismaClient();
-        const provider = await prisma.provider.findUnique({
+        const provider = await prisma.users.findUnique({
             where: {
                 username: username
             }
