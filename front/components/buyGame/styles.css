@@ -1,0 +1,19 @@
+body {
+    background: transparent;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.row {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    --bs-gutter-x: 0;
+    background-color: #f0f0f0;
+    
+}
+.mainImg{
+    background-color: orangered;
+}

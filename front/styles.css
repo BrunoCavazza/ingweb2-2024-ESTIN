@@ -34,9 +34,14 @@ body { /* Fondo animado*/
 }
 
 /* Estilos bases*/
-li{
+#userName {
+  display: none;
+  margin-top: 20px;
+  font-size: 18px;
+  color: #db87ff;
   font-family: "Pixelify Sans", sans-serif;
 }
+ 
 .pixel_font_title{
   font-family: "VT323", monospace;
   color: #ffffff;

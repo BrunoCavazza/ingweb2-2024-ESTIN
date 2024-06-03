@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const loginForm = document.getElementById('loginForm');
+    const loginbtn = document.getElementById('loginbtn');
+    const modalogin = document.getElementById('modalogin');
     const loginButton = document.getElementById('loginButton');
 
     console.log(loginButton);
@@ -25,7 +26,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const data = await response.json();
                 if (response.ok) {
-                    alert('Login exitoso. Token: ' + data.token);
+                    alert('Login exitoso!');
+                    console.log('Token saved:', data.token);
+                    sessionStorage.setItem('token', data.token);
+                    loginbtn.style.display = 'none';
+                    modalogin.style.display = 'none';
+                    modalogin.style.background = 'none';
+                    userContainer.style.display = 'block';
+                    userNameElement.textContent = `Logged in as: ${username}`;
                 } else {
                     alert('Error: ' + data.error);
                 }
