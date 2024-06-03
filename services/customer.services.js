@@ -15,6 +15,15 @@ class CustomerServices {
         return provider;
     }
 
+    async getCustomerLibrary(userId){
+        const prisma = new PrismaClient();
+        const library = await prisma.library.findUnique({
+            where: {
+                user_id: userId
+            }
+        });
+        return library;
+    }
 
 }
 

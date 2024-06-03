@@ -1,11 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const libraryController = require('../controller/library.controller')
-const verifyToken = require("../utils/jwt.js");
+const verifyToken = require("../utils/verifyToken.middleware");
+
+const customer = require ("../router/customer.router")
+const provider = require ("../router/provider.router")
 
 router
-    .get("/myLibrary", verifyToken.verifyConsumer, libraryController.getUserLibrary)
-    .get("/myGames", verifyToken.verifyProvider, libraryController.getProviderGames)
+    .use("/myLibrary", verifyToken.verifyCustomer, customer)
+    .use("/myGames", verifyToken.verifyProvider, provider)
 
 module.exports = router;
 

@@ -1,17 +1,6 @@
 const GameServices = require('../services/game.services');
 const game = new GameServices();
 
-const create = async (req, res) =>{
-    try {
-        //aca ver que pingo pongo
-        console.log(req.body)
-        const response = await game.createGame(req.body);
-        res.status(200).json({message: 'Juego creado', data: response});
-    } catch (error) {
-        res.status(500).send({message: error.message});
-    }
-
-}
 
 /*const filterCategory = async (req, res) =>{
     try {
@@ -49,27 +38,7 @@ const getGamesPaged = async (req, res) =>{
     }
 }
 
-const generateTransaction = async (req, res) => {
 
-    try {
-        const successTransac = await game.transaction(req.body.senderId, req.body.receiverId, req.body.amount);
-        if (successTransac){
-            const response = await game.gameToLibrary(req.body.senderId)
-                if (response){
-                    res.status(200).json({message: 'Transaccion realizada', data: response});
-                }else{
-                    res.status(401).json({message: "No se pudo realizar la adicion del juego; transaccion fallida."})
-                }
-
-        }else{
-            res.status(401).json({message: "No se pudo realizar la transaccion."});
-        }
-    } catch (error) {
-        res.status(500).send({message: error.message});
-    }
-
-
-}
 
 const gameScreen = async (req, res) =>{
     try {
@@ -81,4 +50,4 @@ const gameScreen = async (req, res) =>{
 }
 
 
-module.exports = {create, filter, getAll, generateTransaction, getGamesPaged, gameScreen};
+module.exports = {filter, getAll, getGamesPaged, gameScreen};
