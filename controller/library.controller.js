@@ -4,4 +4,3 @@ const library = new LibraryServices();
 
 
 
-module.exports = {getUserLibrary};

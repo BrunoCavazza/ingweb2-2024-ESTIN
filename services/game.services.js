@@ -36,7 +36,7 @@ class GameServices{
         return game;
     }*/  
 
-    async getNameByFilter(filters){
+    async getGameByFilter(filters){
         const prisma = new PrismaClient();
         const game = await prisma.games.findMany({
             where: {

@@ -7,7 +7,7 @@ class LibraryServices{
 
     async generateLibrary(userId){
         const prisma = new PrismaClient();
-        const library = await prisma.library.create({
+        const library = await prisma.libraries.create({
             data: {
                 user_id: userId
             }
@@ -17,7 +17,7 @@ class LibraryServices{
 
     async addGameToLibrary(userId, gameId){
         const prisma = new PrismaClient();
-        const library = await prisma.library.update({
+        const library = await prisma.libraries.update({
             where: {
                 user_id: userId
             },

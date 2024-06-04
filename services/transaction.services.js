@@ -29,7 +29,7 @@ class TransactionServices{
                         }
                     }
                 }),
-                prisma.library.update({
+                prisma.libraries.update({
                     where: {
                         user_id: userId
                     },

@@ -1,5 +1,5 @@
-const costumerService = require('../services/customer.services');
-const customer = new costumerService();
+const customerService = require('../services/customer.services');
+const customer = new customerService();
 
 const getCustomerLibrary = async (req, res) => {
     try {

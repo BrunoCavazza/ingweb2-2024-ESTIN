@@ -6,7 +6,7 @@ const buyGame = async (req, res) => {
 
     try {
         const successTransac = await transaction.buyGame(req.token.senderId, req.body.receiverId, req.body.amount);
-        res.json({message: 'Transaccion realizada', data: response});
+        res.json({message: 'Transaccion realizada', data: successTransac});
         
     } catch (error) {
         res.status(500).send({message: error.message});

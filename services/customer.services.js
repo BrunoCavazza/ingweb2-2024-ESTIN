@@ -17,7 +17,7 @@ class CustomerServices {
 
     async getCustomerLibrary(userId){
         const prisma = new PrismaClient();
-        const library = await prisma.library.findUnique({
+        const library = await prisma.libraries.findUnique({
             where: {
                 user_id: userId
             }

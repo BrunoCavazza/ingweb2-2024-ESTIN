@@ -15,7 +15,7 @@ const createGame = async (req, res) =>{
 
 const getProviderGames = async (req, res) => {
     try {
-        const response = await library.getProviderGames(req.token.id);
+        const response = await provider.getProviderGames(req.token.id);
         res.status(200).json({message: 'Lista de juegos del proveedor', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});
