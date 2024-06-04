@@ -5,8 +5,9 @@ CREATE TABLE "Users" (
     "password" TEXT NOT NULL,
     "role" TEXT NOT NULL,
     "status" INTEGER NOT NULL,
-    "wallet_id" INTEGER NOT NULL,
+    "wallet_id" SERIAL NOT NULL,
     "funds" INTEGER NOT NULL,
+    "email" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -30,6 +31,10 @@ CREATE TABLE "Games" (
     "name" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
     "description" TEXT NOT NULL,
+    "owner" TEXT NOT NULL,
+    "categories" TEXT[],
+    "mainPicture" TEXT NOT NULL,
+    "pictures" TEXT[],
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -68,22 +73,17 @@ CREATE TABLE "GamesOnLibrary" (
     CONSTRAINT "GamesOnLibrary_pkey" PRIMARY KEY ("id")
 );
 
--- CreateTable
-CREATE TABLE "Pictures" (
-    "id" SERIAL NOT NULL,
-    "url" TEXT NOT NULL,
-    "game_id" INTEGER NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "Pictures_pkey" PRIMARY KEY ("id")
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "Users_username_key" ON "Users"("username");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Libraries_user_id_key" ON "Libraries"("user_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Games_name_key" ON "Games"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Categories_name_key" ON "Categories"("name");
 
 -- AddForeignKey
 ALTER TABLE "Libraries" ADD CONSTRAINT "Libraries_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -99,7 +99,3 @@ ALTER TABLE "GamesOnLibrary" ADD CONSTRAINT "GamesOnLibrary_game_id_fkey" FOREIG
 
 -- AddForeignKey
 ALTER TABLE "GamesOnLibrary" ADD CONSTRAINT "GamesOnLibrary_library_id_fkey" FOREIGN KEY ("library_id") REFERENCES "Libraries"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Pictures" ADD CONSTRAINT "Pictures_game_id_fkey" FOREIGN KEY ("game_id") REFERENCES "Games"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-

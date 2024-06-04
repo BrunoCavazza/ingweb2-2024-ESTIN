@@ -11,7 +11,7 @@ router
     .get('/:id', gameController.gameScreen)
     
 router.use('/buyGame', verifyToken.verifyCustomer , transaction)
-router.use('/createGame', verifyToken.verifyProvider , provider)
+router.use(provider)
 
 module.exports = router;
     

@@ -39,12 +39,13 @@ model Libraries{
 
 model Games{
   id                Int @id @default(autoincrement())
-  name              String
+  name              String @unique
   price             Int
   description       String
   owner             String
   libraries         GamesOnLibrary[]
-  categories        CategoriesOnGames[]
+  categories        String[]
+  categories_conn   CategoriesOnGames[]
   mainPicture       String
   pictures          String[] 
   createdAt         DateTime @default(now())
@@ -53,7 +54,7 @@ model Games{
 
 model Categories{
   id                Int @id @default(autoincrement())
-  name              String
+  name              String @unique
   games             CategoriesOnGames[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 
@@ -61,9 +62,9 @@ model Categories{
 
 model CategoriesOnGames{
   id                Int @id @default(autoincrement())
-  games             Games @relation(fields: [game_id], references: [id])
+  fk_game_cat       Games @relation(fields: [game_id], references: [id])
   game_id           Int
-  categories        Categories @relation(fields: [category_id], references: [id])
+  fk_cat_game       Categories @relation(fields: [category_id], references: [id])
   category_id       Int 
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 
@@ -71,9 +72,9 @@ model CategoriesOnGames{
 
 model GamesOnLibrary{
   id                Int @id @default(autoincrement())
-  games             Games @relation(fields: [game_id], references: [id])
+  fk_game_lib       Games @relation(fields: [game_id], references: [id])
   game_id           Int
-  libraries         Libraries @relation(fields: [library_id], references: [id])
+  fk_lib_game       Libraries @relation(fields: [library_id], references: [id])
   library_id        Int
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 
