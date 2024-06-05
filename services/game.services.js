@@ -36,11 +36,12 @@ class GameServices{
         return game;
     }*/  
 
-    async getGameByFilter(filters){
+    async getGamesByFilter(filters){
         const prisma = new PrismaClient();
+        console.log(filters)
         const game = await prisma.games.findMany({
             where: {
-                AND: [
+                OR: [
                     {name: {contains: filters.name}},
                     {categories: {contains: filters.category}}
                 ]
@@ -56,13 +57,14 @@ class GameServices{
         return game;
     }
 
-    async getPagedGames(page){
-        let currentPage = page-1;
+    async getGamesPaged(page){
+        
         const prisma = new PrismaClient();
         const game = await prisma.games.findMany({
-            skip: 0*currentPage,
-            take: 10
+            skip: 1,
+            take: 2
         });
+        console.log("JUEGUITOS "+game)
         return game;
     }
 

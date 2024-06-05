@@ -8,11 +8,20 @@ function submitForm() {
     const pictures = document.getElementById('pictures').value.split(',').map(p => p.trim());
     const categories = document.getElementById('categories').value.split(',').map(c => c.trim());
 
+    // Obtener el hash de sessionStorage
+    const hash = sessionStorage.getItem('token');
+
+    // Verificar si el hash está disponible
+    if (!hash) {
+        alert('Please login again.');
+        return;
+    }
+
     // Crear un objeto con los datos del formulario
     const gameData = {
         name: name,
         description: description,
-        price: parseFloat(price),
+        price: price,
         owner: owner,
         mainPicture: mainPicture,
         pictures: pictures,
@@ -23,7 +32,8 @@ function submitForm() {
     fetch('http://localhost:3010/games/createGame', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'body': 'application/json',
+            'tokenAuth': `Bearer ${hash}`
         },
         body: JSON.stringify(gameData)
     })

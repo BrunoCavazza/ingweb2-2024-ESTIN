@@ -1,5 +1,5 @@
 const GameServices = require('../services/game.services');
-const game = new GameServices();
+const gameService = new GameServices();
 
 
 /*const filterCategory = async (req, res) =>{
@@ -11,18 +11,29 @@ const game = new GameServices();
     }
 }*/
 
-const filter = async (req, res) =>{
+/*const filter = async (req, res) =>{
     try {
-        const response = await game.getGameByFilter(req.params);
-        res.json({message: 'Juegos filtrados por texto', data: response});
+        console.log(req.params)
+        const response = await gameService.getGamesByFilter(req.params);
+        res.json({message: 'Juegos filtrados ', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});
     }
+}*/
+
+const filter = async (req, res) =>{
+    try{
+        const response = await gameService.getGamesByFilter(req.params);
+        res.status(200).json({message: 'Juegos filtrados', data: response});
+    }catch(error){
+        res.status(500).send({message: error.message});
+    }
+    
 }
 
 const getAll = async (req, res) =>{
     try {
-        const response = await game.getAllGames();
+        const response = await gameService.getAllGames();
         res.status(200).json({message: 'Todos los juegos', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});
@@ -30,9 +41,10 @@ const getAll = async (req, res) =>{
 }
 
 const getGamesPaged = async (req, res) =>{
+    console.log(req.params)
     try {
-        const response = await game.getGamesPaged(req.params.page);
-        res.status(200).json({message: 'Juegos paginados', data: response});
+        const response = await gameService.getGamesPaged(req.params.page-1);
+        res.status(200).json({message: 'Juegos paginados ', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});
     }

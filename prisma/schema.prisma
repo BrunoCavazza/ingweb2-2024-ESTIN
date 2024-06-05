@@ -31,8 +31,8 @@ model Libraries{
   id                Int @id @default(autoincrement())
   user              Users @relation(fields: [user_id], references: [id])
   user_id           Int @unique
+  tmp_game_id       Int
   games_id          GamesOnLibrary[]
-  buy_timestamp     DateTime
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 
 }

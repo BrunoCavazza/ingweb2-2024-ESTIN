@@ -9,10 +9,12 @@ const router = express.Router();
 const game = require("./game.router");
 const login = require("./login.router");
 const library = require("./library.router");
+const transaction = require("./transaction.router");
+
 router.use(login)
 //router.use(register)
 router.use("/games", game)
 router.use(library)
-
+router.use(transaction)
 
 module.exports = router;

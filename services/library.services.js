@@ -15,7 +15,7 @@ class LibraryServices{
         return library;
     }
 
-    async addGameToLibrary(userId, gameId){
+    /*async addGameToLibrary(userId, gameId){
         const prisma = new PrismaClient();
         const library = await prisma.libraries.update({
             where: {
@@ -30,7 +30,7 @@ class LibraryServices{
             }
         });
         return library;
-    }
+    }*/
 
 }
 

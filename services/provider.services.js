@@ -1,5 +1,4 @@
 const {PrismaClient} = require('@prisma/client');
-const { connect } = require('http2');
 
 
 class ProviderServices {
@@ -9,13 +8,15 @@ class ProviderServices {
     }
 
     async getProviderByUsername(username){
-
+        console.log("hola lindo")
         const prisma = new PrismaClient();
-        const provider = await prisma.provider.findUnique({
+        console.log("prisma qcy " +prisma)
+        const provider = await prisma.users.findUnique({
             where: {
                 username: username
             }
         });
+        console.log("provider qcy " +provider.username)
         return provider;
     }
 
@@ -95,7 +96,6 @@ class ProviderServices {
                     fk_cat_game: {connect: {id: category}},
                     fk_game_cat: {connect: {id: gameid}}
                         
-                    
                 }
             });
         }
@@ -110,22 +110,6 @@ class ProviderServices {
 
         console.log("GAMECAT: " +gameOnCat)
 
-        /*const game = await prisma.games.create({
-            data: {
-                name: newGame.name,
-                description: newGame.description,
-                price: newGame.price,
-                owner: newGame.owner,
-                mainPicture: newGame.mainPicture,
-                pictures: newGame.pictures,
-                categories: {
-                    connect: {
-                        id: newGame.categories
-                    }
-                
-                }
-            }
-        });*/
 
     }
 
@@ -137,6 +121,8 @@ class ProviderServices {
                 owner: ownerId
             }
         });
+        
+
         return games;
     }
 

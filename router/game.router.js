@@ -7,11 +7,12 @@ const provider = require ("../router/provider.router.js")
 
 router
     .get('/filter', gameController.filter)
-    .get('/page', gameController.getGamesPaged)
+    .get('/', gameController.getGamesPaged)
     .get('/:id', gameController.gameScreen)
     
-router.use('/buyGame', verifyToken.verifyCustomer , transaction)
-router.use(provider)
+router.use(/*verifyToken.verifyCustomer ,*/ transaction)
+console.log("hola")
+router.use(/*verifyToken.verifyProvider,*/ provider)
 
 module.exports = router;
     

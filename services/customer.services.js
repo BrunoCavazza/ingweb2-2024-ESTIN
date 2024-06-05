@@ -7,7 +7,7 @@ class CustomerServices {
     }
     async getCustomerByUsername(username){
         const prisma = new PrismaClient();
-        const customer = await prisma.customer.findUnique({
+        const customer = await prisma.users.findUnique({
             where: {
                 username: username
             }

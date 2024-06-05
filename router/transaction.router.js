@@ -5,7 +5,7 @@ const transactionController = require('../controller/transaction.controller')
 console.log("god")
 
 router
-    .post(transactionController.generateTransaction);
-    
+    .post('/buyGame', transactionController.buyGame)
+    .put('/addFunds', transactionController.addFunds)
 
 module.exports = router;
