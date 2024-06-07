@@ -12,19 +12,24 @@ body {
     padding-left: 0 !important;
     --bs-gutter-x: 0;
 }
-
+.col-3{
+    margin-left: 65px;
+}
 .mainGames {
     max-height: 30%;
 }
 
 .bannerDetails {
     background-color: #4F0B54;
-
-
 }
 
 .miniImg {
     margin-bottom: 10%;
+    
+}
+
+.card-img-top{
+    height: 180px;
 }
 
 .pixelPrice {
@@ -76,7 +81,7 @@ body {
     position: relative;
     font-optical-sizing: auto;
     font-style: normal;
-    font-size: 150%;
+    font-size: 200%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,7 +93,7 @@ body {
     position: relative;
     font-optical-sizing: auto;
     font-style: normal;
-    font-size: 100%;
+    font-size: 180%;
     display: flex;
     justify-content: center;
     align-items: center;

@@ -44,7 +44,12 @@ const getGamesPaged = async (req, res) =>{
     console.log(req.params)
     try {
         const response = await gameService.getGamesPaged(req.params.page-1);
-        res.status(200).json({message: 'Juegos paginados ', data: response});
+
+        const responseArray = []
+        for (let i = 0; i < response.length; i++){
+            responseArray.push(response[i])
+        }
+        res.status(200).send(responseArray);
     } catch (error) {
         res.status(500).send({message: error.message});
     }

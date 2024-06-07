@@ -21,7 +21,7 @@
 </head>
 
 <body>
-  <div class="contenedor">    
+  <div class="contenedor">
     <div class="column left">
       <div class="cube_background"> <!-- Cubo -->
         <div class="cubo_contenedor">
@@ -80,10 +80,10 @@
 
       </div>
       <div class=" column_categories">
-        
-        <!--Iframe izquierda -->  
-        <iframe id="LeftContent" class="leftFrame" src="./components/categories/categories.html" frameborder="0"></iframe>
 
+        <!--Iframe izquierda -->
+        <iframe id="LeftContent" src="./components/categories/categories.html"  class="leftFrame" frameborder="0"></iframe>
+      
       </div>
     </div>
     <div class="column right">
@@ -91,14 +91,16 @@
         <div class="container text-center">
           <div class="row">
             <div class="col-sm-8">
-              <a onclick="changeIframeSource('./components/inicio/inicio.html')">
-               <h1  class="pixel_font_title">ESTIN</h1>
+              <a href="./components/inicio/inicio.html" target="MainContent" style="text-decoration: none;">
+                <h1 class="pixel_font_title">ESTIN</h1>
               </a>
             </div>
             <div class="col-sm-4">
               <!-- Button trigger modal -->
-
-              <button type="button" class="login" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <div id="userContainer" style="display: none;">
+                <h1 id="userName">USERNAME</h1>
+              </div>
+              <button type="button" class="login" id="loginbtn" data-bs-toggle="modal" data-bs-target="#modalogin">
                 <strong class="pixel_font_login">Log in</strong>
                 <div id="container-stars">
                   <div id="stars"></div>
@@ -111,8 +113,7 @@
               </button>
 
               <!-- Modal login -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+              <div class="modal fade" id="modalogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
 
@@ -125,7 +126,7 @@
                         </div>
                         <div class="user-box">
                           <input type="password" name="" required="" id="loginPassword">
-                          <label class="pixel_font" >Password</label>
+                          <label class="pixel_font">Password</label>
                         </div>
                         <center>
                           <a type="submit" id="loginButton" class="pixel_font">
@@ -141,7 +142,8 @@
               </div>
             </div>
             <!-- aca elementos del medio-->
-              <iframe id="MainContent" class="bigFrame" src="./components/inicio/inicio.html" frameborder="0"></iframe>
+            <iframe id="MainContent" name="MainContent" class="bigFrame" src="./components/inicio/inicio.html"
+              frameborder="0"></iframe>
 
           </div>
         </div>
@@ -154,6 +156,7 @@
       integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
       crossorigin="anonymous"></script>
     <script src="./scripts.js"></script>
+
 </body>
 
 </html>

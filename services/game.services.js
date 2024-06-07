@@ -61,8 +61,8 @@ class GameServices{
         
         const prisma = new PrismaClient();
         const game = await prisma.games.findMany({
-            skip: 1,
-            take: 2
+            skip: 0,
+            take: 12
         });
         console.log("JUEGUITOS "+game)
         return game;

@@ -66,7 +66,7 @@ async function main(){
             {email: "elpepe@hotmail.com", password: await hash.hashPassword("Jijijija_23123"), username: "elpepe", role: "owner", status: 1, funds: 0, wallet_id: 1},
             {email: "pandulc@hotmail.com", password: await hash.hashPassword("3487-asd"), username: "pandulce", role: "customer", status: 1, funds: 0, wallet_id: 2},
             {email: "michibebe@hotmail.com", password: await hash.hashPassword("amo_a_mi_michi01"), username: "michi", role: "owner", status: 1, funds: 500, wallet_id: 3},
-            {email: "choroslayer@hotmail.com", password: await hash.hashPassword("qcypassdelchoro_01"), username: "choroslayer", role: "customer", status: 1, funds: 0, wallet_id: 4}
+            {email: "choroslayer@hotmail.com", password: await hash.hashPassword("pepe123"), username: "choroslayer", role: "owner", status: 1, funds: 0, wallet_id: 4}
         ],
         skipDuplicates: true
     })

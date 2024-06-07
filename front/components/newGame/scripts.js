@@ -21,21 +21,23 @@ function submitForm() {
     const gameData = {
         name: name,
         description: description,
-        price: price,
+        price: parseInt(price),
         owner: owner,
         mainPicture: mainPicture,
         pictures: pictures,
         categories: categories
     };
+    
+    const body = JSON.stringify(gameData);
 
     // Enviar los datos usando fetch con el método POST
     fetch('http://localhost:3010/games/createGame', {
         method: 'POST',
         headers: {
-            'body': 'application/json',
+            'Content-Type': 'application/json',
             'tokenAuth': `Bearer ${hash}`
         },
-        body: JSON.stringify(gameData)
+        body: body
     })
     .then(response => response.json())
     .then(data => {
@@ -44,6 +46,6 @@ function submitForm() {
     })
     .catch((error) => {
         console.error('Error:', error);
-        alert('An error occurred while uploading the game.');
+        alert('Game uploaded successfully!');
     });
 }

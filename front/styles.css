@@ -35,9 +35,8 @@ body { /* Fondo animado*/
 
 /* Estilos bases*/
 #userName {
-  display: none;
   margin-top: 20px;
-  font-size: 18px;
+  font-size: 250%;
   color: #db87ff;
   font-family: "Pixelify Sans", sans-serif;
 }

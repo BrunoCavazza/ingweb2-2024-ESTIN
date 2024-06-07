@@ -11,9 +11,158 @@ body {
     padding-right: 0 !important;
     padding-left: 0 !important;
     --bs-gutter-x: 0;
-    background-color: #f0f0f0;
-    
+    background: #1b143b;
+    height: 120vh;
 }
 .mainImg{
-    background-color: orangered;
+    background-color: #6e0e6e;
+    width: 100%;
+    height: 40vh;
+}
+.SecondaryImage{
+    background-color: #1b143b;
+    width: 250px;
+    height: 200px;
+    margin-left: 10%;
+    
+}
+.GameName{
+  font-family: "VT323", monospace;
+  color: #ffffff;
+  position: relative;
+  font-optical-sizing: auto;
+  font-style: normal;
+  text-align: center;
+  font-size: 500%;
+  margin-top: 10vh;
+}
+.DescriptionTitle{
+  font-family: "Pixelify Sans", sans-serif;
+    color: #ffffff;
+    text-align: left;
+    padding-left: 8%;
+}
+.OwnerFont{
+    font-family: "Pixelify Sans", sans-serif;
+    color: #ffffff;
+    text-align: left;
+  
+}
+.CategoriesFont{
+    font-family: "Pixelify Sans", sans-serif;
+    color: #ffffff;
+    text-align: center;
+    margin-top: 8px;
+}
+.Description{
+  padding-left: 40px;
+}
+.DescriptionText{
+    font-family: "Pixelify Sans", sans-serif;
+    color: #ffffff;
+    text-align: left;
+    font-size: 130%;
+    bottom: 200px;
+}
+.tag {
+  font-family: "Pixelify Sans", sans-serif;
+  text-align: left;
+  color: #fff;
+  font-size: 1.5em;
+  padding-left: 40%;
+  position: relative;
+  text-transform: lowercase;
+  }
+/* boton compra */
+.BuyButton {
+    font-family: "Pixelify Sans", sans-serif;
+    --black: #000000;
+    --ch-black: #141414;
+    --eer-black: #1b1b1b;
+    --night-rider: #1b143b;
+    --white: #a105df;
+    --af-white: #b910b9;
+    --ch-white: #ab18e6;
+    border-radius: 8px;
+    width: 340px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0px 15px;
+    border: none;
+    color: white;
+    position: relative;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 200%;
+    transition-duration: .2s;
+    background-color: var(--ch-black);
+    z-index: 10;
+    margin-left: 100px;
+    bottom: 70px;
+  }
+  
+  .BuyButton:before, .BuyButton:after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, 
+    var(--ch-black), var(--eer-black),
+    var(--night-rider), var(--ch-white), var(--night-rider), 
+      var(--eer-black), var(--ch-black),var(--ch-black));
+    background-size: 400%;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    z-index: -1;
+    animation: steam 20s linear infinite;
+  }
+  
+  @keyframes steam {
+    0% {
+      background-position: 0 0;
+    }
+  
+    50% {
+      background-position: 400% 0;
+    }
+  
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  .BuyButton:after {
+    filter: blur(10px);
+  }
+  
+  /* barra dezplazadorsaas*/
+
+/* Estilo general de la barra de desplazamiento */
+::-webkit-scrollbar {
+  width: 10px;
+  /* Ancho de la barra de desplazamiento */
+}
+
+/* Fondo de la barra de desplazamiento */
+::-webkit-scrollbar-track {
+  background: transparent;
+  /* Color de fondo */
+}
+
+/* Estilo del pulgar (la parte que se desplaza) */
+::-webkit-scrollbar-thumb {
+  background: #bf23df;
+  /* Color del pulgar */
+  border-radius: 5px;
+  /* Redondear los bordes */
+}
+
+/* Estilo del pulgar al pasar el ratón */
+::-webkit-scrollbar-thumb:hover {
+  background: #d42aff;
+  /* Color del pulgar al pasar el ratón */
 }
