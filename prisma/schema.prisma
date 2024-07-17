@@ -22,18 +22,18 @@ model Users{
   wallet_id         Int @default(autoincrement())
   funds             Int
   email             String
-  libraries         Libraries?
+  transactions      Transaction[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 
 }
 
-model Libraries{
+model Transaction{
   id                Int @id @default(autoincrement())
-  user              Users @relation(fields: [user_id], references: [id])
-  user_id           Int @unique
-  tmp_game_id       Int
-  games_id          GamesOnLibrary[]
-  createdAt         DateTime @default(now())
+  user              Users? @relation(fields: [user_id], references: [id])
+  user_id           Int? @unique
+  game              Games? @relation(fields: [game_id], references: [id])
+  game_id           Int? @unique
+  createdAt         DateTime @default(now())  
   updatedAt         DateTime @updatedAt 
 }
 
@@ -43,11 +43,10 @@ model Games{
   price             Int
   description       String
   owner             String
-  libraries         GamesOnLibrary[]
-  categories        String[]
-  categories_conn   CategoriesOnGames[]
+  categories        CategoriesOnGames[] 
   mainPicture       String
   pictures          String[] 
+  transactions      Transaction[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 
 }
@@ -62,20 +61,10 @@ model Categories{
 
 model CategoriesOnGames{
   id                Int @id @default(autoincrement())
-  fk_game_cat       Games @relation(fields: [game_id], references: [id])
-  game_id           Int
-  fk_cat_game       Categories @relation(fields: [category_id], references: [id])
-  category_id       Int 
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt 
-}
-
-model GamesOnLibrary{
-  id                Int @id @default(autoincrement())
-  fk_game_lib       Games @relation(fields: [game_id], references: [id])
-  game_id           Int
-  fk_lib_game       Libraries @relation(fields: [library_id], references: [id])
-  library_id        Int
+  fk_game_cat       Games? @relation(fields: [game_id], references: [id])
+  game_id           Int?
+  fk_cat_game       Categories? @relation(fields: [category_id], references: [id])
+  category_id       Int? 
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 
 }

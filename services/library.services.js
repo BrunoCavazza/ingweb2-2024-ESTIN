@@ -4,33 +4,24 @@ class LibraryServices{
     constructor(){
 
     }
-
-    async generateLibrary(userId){
+    
+    getUserLibrary(username){
         const prisma = new PrismaClient();
-        const library = await prisma.libraries.create({
-            data: {
-                user_id: userId
+        const user = prisma.users.findUnique({
+            where: {
+                username: username
             }
         });
-        return library;
-    }
-
-    /*async addGameToLibrary(userId, gameId){
-        const prisma = new PrismaClient();
-        const library = await prisma.libraries.update({
+        const library = prisma.transaction.findMany({
             where: {
-                user_id: userId
-            },
-            data: {
-                games: {
-                    connect: {
-                        id: gameId
-                    }
+                user_id: user.id,
+                include: {
+                    games: true
                 }
             }
         });
         return library;
-    }*/
+    }
 
 }
 

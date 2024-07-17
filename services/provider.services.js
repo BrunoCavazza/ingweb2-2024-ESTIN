@@ -29,6 +29,9 @@ class ProviderServices {
         console.log(newGame.categories)
         const prisma = new PrismaClient();
 
+        const categoriesData = newGame.categories.map(category => ({ name: category }));
+
+        console.log(categoriesData)
         /*const categoriesValues = await prisma.categories.findMany({
             where: {
                 name: {
@@ -47,7 +50,7 @@ class ProviderServices {
 
         });*/
         //console.log(gameOnCategories)
-        let idArray = [];
+        /*let idArray = [];
         for (let i = 0; i < newGame.categories.length; i++) {
             const category = newGame.categories[i];
             console.log(category)
@@ -66,9 +69,9 @@ class ProviderServices {
                     }
                 });
                 console.log(newCategory)
-            }*/
+            }
         }
-        console.log(idArray)
+        console.log(idArray)*/
 
         
  
@@ -80,7 +83,12 @@ class ProviderServices {
                 owner: newGame.owner,
                 mainPicture: newGame.mainPicture,
                 pictures: newGame.pictures,
-                categories: newGame.categories            
+                /*categories: {
+                    createMany:
+                    {
+                        data: 
+                    }
+                }*/            
             }
         });
         console.log("aber " +game.id)

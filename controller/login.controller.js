@@ -8,6 +8,7 @@ const loginService = new LoginServices();
 
 const {generateToken} = require("../utils/verifyToken.middleware");
 const {hashPassword, verifyPassword} = require("../utils/hasherandverifier");
+const jwt = require('jsonwebtoken');
 
 const authentication = async (req, res) =>{
 
@@ -26,7 +27,16 @@ const authentication = async (req, res) =>{
         }
 
         const token = generateToken(user, user.role);
+        console.log("el token cheto pero visto desde afuera: ")
+        console.log(token);
         console.log("rol cheto: "+ token.role)
+        
+        const decodedToken = jwt.verify(token, 'secret');
+        console.log("token devuelto:")
+        console.log(decodedToken)
+        console.log("rol cheto: "+ decodedToken.role)
+
+
         return res.status(200).json({message: token.role + " autentificado", token: token});
         
 

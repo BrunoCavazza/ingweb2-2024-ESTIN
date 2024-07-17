@@ -1,9 +1,12 @@
 const jwt = require('jsonwebtoken');
 
-const JWT_SECRET = 'secret';
+const JWT_SECRET = process.env.JWT_SECRET || 'secret';
 
 function generateToken(user, role){
-    return jwt.sign({ id: user.id, username: user.username, role: role}, JWT_SECRET, {expiresIn: '1h'});
+    let token = jwt.sign({ id: user.id, username: user.username, role: role}, JWT_SECRET, {expiresIn: '1h'});
+    console.log("ACA ESTA EL TOKEN CHETO: ")
+    console.log(token);
+    return token;
 }
 
 const verifyProvider = (req, res, next) => {
@@ -15,6 +18,8 @@ const verifyProvider = (req, res, next) => {
         const decoded = jwt.verify(token, JWT_SECRET);
         if(decoded.role === 'provider'){
             req.token = decoded;
+            console.log("TOKEN DECODIFICADO EN VERIFY")
+            console.log(req.token)
             next();
         }else{
             return res.status(403).json({message: "Usuario no autorizado."})
@@ -34,6 +39,8 @@ const verifyCustomer = (req, res, next) => {
         const decoded = jwt.verify(token, JWT_SECRET);
         if(decoded.role === 'customer'){
             req.token = decoded;
+            console.log("TOKEN DECODIFICADO EN VERIFY")
+            console.log(req.token)
             next();
         }else{
             return res.status(403).json({message: "Usuario no autorizado."})
