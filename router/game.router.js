@@ -10,9 +10,8 @@ router
     .get('/', gameController.getGamesPaged)
     .get('/:id', gameController.gameScreen)
     
-router.use(/*verifyToken.verifyCustomer ,*/ transaction)
-console.log("hola")
-router.use(/*verifyToken.verifyProvider,*/ provider)
+router.use(verifyToken.verifyCustomer , transaction)
+router.use(verifyToken.verifyProvider, provider)
 
 module.exports = router;
     

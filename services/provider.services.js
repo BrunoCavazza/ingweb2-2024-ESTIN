@@ -72,8 +72,6 @@ class ProviderServices {
             }
         }
         console.log(idArray)*/
-
-        
  
         const game = await prisma.games.create({
             data: {
@@ -83,12 +81,9 @@ class ProviderServices {
                 owner: newGame.owner,
                 mainPicture: newGame.mainPicture,
                 pictures: newGame.pictures,
-                /*categories: {
-                    createMany:
-                    {
-                        data: 
-                    }
-                }*/            
+                categories: {
+                    connectOrCreate: categoriesData
+                }     
             }
         });
         console.log("aber " +game.id)
