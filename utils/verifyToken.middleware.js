@@ -11,6 +11,8 @@ function generateToken(user, role){
 
 const verifyProvider = (req, res, next) => {
     const token = req.headers.tokenAuth;
+    console.log("token de header verifyProv: "+token)
+    console.log("token de header decodificado verifyProv: "+jwt.decode(token, JWT_SECRET))
     if(!token){
         return res.status(403).json({message: "NO AUTORIZADO"})
     }
@@ -26,12 +28,16 @@ const verifyProvider = (req, res, next) => {
         }
 
     } catch (error) {
-        
+        return res.status(403).json({message: "Usuario no autorizado."})
+
     }
 }
 
 const verifyCustomer = (req, res, next) => {
     const token = req.headers.tokenAuth;
+    console.log("token de header verifyCust: "+token)
+    console.log("token de header decodificado verifyCust: "+jwt.decode(token, JWT_SECRET))
+    
     if(!token){
         return res.status(403).json({message: "NO AUTORIZADO"})
     }
@@ -47,7 +53,8 @@ const verifyCustomer = (req, res, next) => {
         }
 
     } catch (error) {
-        
+        return res.status(403).json({message: "Usuario no autorizado."})
+
     }
 }
 

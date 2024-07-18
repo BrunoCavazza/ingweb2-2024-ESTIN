@@ -9,8 +9,10 @@ const accountCreation = async (req, res) =>{
         const createdResponse = registerService.createUser(req.body);
         if (createdResponse){
             return res.status(200).json({message: "Se creo el nuevo usuario: " + req.body.username +"."});
-        }else{
-            return res.status(401).json({message: "El usuario " + req.body.username + " ya existe."});
+        }else if (createdResponse === 1){
+            return res.status(401).json({message: "El nombre de usuario " + req.body.username + " ya existe."});
+        }else if (createdResponse === 2){
+            return res.status(401).json({message: "El email " + req.body.email + " ya existe."});
         }
     } catch (error) {
         res.status(500).json({message: "Error al crear el usuario"});

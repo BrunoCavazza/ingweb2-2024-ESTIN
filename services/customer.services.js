@@ -17,9 +17,12 @@ class CustomerServices {
 
     async getCustomerLibrary(userId){
         const prisma = new PrismaClient();
-        const library = await prisma.libraries.findUnique({
+        const library = prisma.transaction.findMany({
             where: {
-                user_id: userId
+                user_id: userId,
+                include: {
+                    games: true
+                }
             }
         });
         return library;

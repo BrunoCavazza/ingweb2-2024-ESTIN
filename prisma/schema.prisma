@@ -19,7 +19,6 @@ model Users{
   password          String
   role              String
   status            Int
-  wallet_id         Int @default(autoincrement())
   funds             Int
   email             String
   transactions      Transaction[]

@@ -10,22 +10,36 @@ class RegisterServices {
         prisma = new PrismaClient();
 
         console.log(newUserJson)
-        const newUser = await prisma.users.create({
+
+        const userCheck = await prisma.users.findUnique({
             where: {
                 username: newUserJson.username
-            },
-            defaults: {
+            }
+        });
+        const emailCheck = await prisma.users.findUnique({
+            where: {
+                email: newUserJson.email
+            }
+        });
+
+        if(userCheck){
+            return 1;
+        }else if(emailCheck){
+            return 2;
+        }
+        const newUser = await prisma.users.create({
+            
+            data: {
                 username: newUserJson.username,
                 password: newUserJson.password,
                 email: newUserJson.email,
-                wallet_id: newUserJson.wallet_id,
-                funds: newUserJson.funds,
-                status: newUserJson.status, //1 = ACTIVO, 0 = INACTIVO
+                funds: 0,
+                status: 1, //1 = ACTIVO, 0 = INACTIVO
                 role: newUserJson.role, //CUSTOMER O PROVIDER (TODO MINUSCULA)
-                library_id: newUserJson.library_id
             }
         });
-        return createResponse;
+        
+        return newUser;
     }
 
 }

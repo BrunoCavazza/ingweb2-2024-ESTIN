@@ -64,12 +64,12 @@ async function main(){
     const users = await prisma.users.createMany({
         data: [
             {email: "elpepe@hotmail.com", password: await hash.hashPassword("Jijijija_23123"), username: "elpepe", role: "provider", status: 1, funds: 0, wallet_id: 1},
-            {email: "pandulc@hotmail.com", password: await hash.hashPassword("3487-asd"), username: "pandulce", role: "customer", status: 1, funds: 0, wallet_id: 2},
+            {email: "pandulc@hotmail.com", password: await hash.hashPassword("3487-asd"), username: "pandulce", role: "customer", status: 1, funds: 50000, wallet_id: 2},
             {email: "michibebe@hotmail.com", password: await hash.hashPassword("amo_a_mi_michi01"), username: "michi", role: "provider", status: 1, funds: 500, wallet_id: 3},
             {email: "choroslayer@hotmail.com", password: await hash.hashPassword("pepe123"), username: "choroslayer", role: "provider", status: 1, funds: 0, wallet_id: 4}
         ],
         skipDuplicates: true
-    })
+    })  
 
     const games = await prisma.games.createMany({
         data: [

@@ -3,6 +3,6 @@ const router = express.Router()
 const customerController = require('../controller/customer.controller')
 
 router
-    .get('/:username', customerController.getCustomerLibrary)
+    .get(customerController.getCustomerLibrary)
 
 module.exports = router;
