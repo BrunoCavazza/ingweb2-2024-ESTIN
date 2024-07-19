@@ -41,9 +41,12 @@ const getAll = async (req, res) =>{
 }
 
 const getGamesPaged = async (req, res) =>{
-    console.log(req.params)
-    try {
-        const response = await gameService.getGamesPaged(req.params.page-1);
+    console.log("params: ")
+    console.log(req.query)
+    console.log("body:")
+    console.log(req.body)
+    try { 
+        const response = await gameService.getGamesPaged(req.query.page-1);
 
         const responseArray = []
         for (let i = 0; i < response.length; i++){

@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 const getCustomerLibrary = async (req, res) => {
     console.log("el request token chetao: ");
-    console.log(req.token.id);
+    console.log(req.token);
 
     decoded = jwt.verify(req.token, process.env.JWT_SECRET);
     console.log("ah pero si ahora lo decodifico: "+ decoded);
