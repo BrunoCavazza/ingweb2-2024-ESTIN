@@ -58,11 +58,11 @@ class GameServices{
     }
 
     async getGamesPaged(page){
-        
+        const pageSize = 10
         const prisma = new PrismaClient();
         const game = await prisma.games.findMany({
-            skip: 0,
-            take: 12
+            skip: page * pageSize,
+            take: pageSize //NO ANDA PORQUE ES UNA PORONGA ESTO
         });
         console.log("JUEGUITOS "+game)
         return game;

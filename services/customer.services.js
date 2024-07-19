@@ -12,7 +12,7 @@ class CustomerServices {
                 username: username
             }
         });
-        return provider;
+        return customer;
     }
 
     async getCustomerLibrary(userId){

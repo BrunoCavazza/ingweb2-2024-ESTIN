@@ -20,7 +20,7 @@ model Users{
   role              String
   status            Int
   funds             Int
-  email             String
+  email             String @unique
   transactions      Transaction[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 

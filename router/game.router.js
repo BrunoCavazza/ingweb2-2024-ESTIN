@@ -1,7 +1,6 @@
 const express = require('express')
 const router = express.Router()
 const gameController = require('../controller/game.controller')
-const transaction = require('../router/transaction.router')
 const verifyToken = require("../utils/verifyToken.middleware.js");
 const provider = require ("../router/provider.router.js")
 
@@ -10,8 +9,7 @@ router
     .get('/', gameController.getGamesPaged)
     .get('/:id', gameController.gameScreen)
     
-router.use(verifyToken.verifyCustomer , transaction)
-router.use(verifyToken.verifyProvider, provider)
+router.use(/*verifyToken.verifyProvider,*/ provider);
 
 module.exports = router;
     

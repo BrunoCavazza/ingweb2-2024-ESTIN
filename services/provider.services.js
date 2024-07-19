@@ -30,7 +30,7 @@ class ProviderServices {
         const prisma = new PrismaClient();
 
         const categoriesData = newGame.categories.map(category => ({ name: category }));
-
+        console.log("valores de categorias:")
         console.log(categoriesData)
         /*const categoriesValues = await prisma.categories.findMany({
             where: {
@@ -72,7 +72,17 @@ class ProviderServices {
             }
         }
         console.log(idArray)*/
- 
+        console.log("SEXO")
+        const gameCheck = await prisma.games.findUnique({
+            where: {
+                name: newGame.name
+            }
+        });
+        if(gameCheck){
+            return 1;
+        }
+        console.log("SEXO2")
+
         const game = await prisma.games.create({
             data: {
                 name: newGame.name,
@@ -82,16 +92,21 @@ class ProviderServices {
                 mainPicture: newGame.mainPicture,
                 pictures: newGame.pictures,
                 categories: {
-                    connectOrCreate: categoriesData
+                    connectOrCreate: newGame.categories.map( (category) => {
+                        return {
+                            where: {name: category},
+                            create: {name: category}
+                        } 
+                        
+                    }
+                )
                 }     
-            }
+            },
         });
         console.log("aber " +game.id)
-        let gameid = game.id;
-        console.log(gameid)
-        let gameOnCat = 0;
 
-        for (let i = 0; i < idArray.length; i++) {
+
+        /*for (let i = 0; i < idArray.length; i++) {
             const category = idArray[i];
             console.log(category)
             gameOnCat = await prisma.categoriesOnGames.create({
@@ -101,7 +116,7 @@ class ProviderServices {
                         
                 }
             });
-        }
+        }*/
         /*gameOnCat = await prisma.categoriesOnGames.create({
             data: {
                 fk_cat_game: idArray,
@@ -110,8 +125,6 @@ class ProviderServices {
                 
             }
         });*/
-
-        console.log("GAMECAT: " +gameOnCat)
 
 
     }

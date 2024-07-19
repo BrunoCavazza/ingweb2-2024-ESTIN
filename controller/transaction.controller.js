@@ -1,9 +1,13 @@
 const TransactionServices = require('../services/transaction.services');
 const transaction = new TransactionServices();
+const jwt = require('jsonwebtoken');
+
 
 const buyGame = async (req, res) => {
     //console.log(token)
-
+    /*const decodedToken = jwt.verify(req.headers.tokenauth, 'secret');
+    console.log("token decodificado:")
+    console.log(decodedToken)*/
     try {
         const successTransac = await transaction.buyGame(req.body.senderId, req.body.receiver, req.body.gameId);
                                                             //ACORDARSE DE CAMBIAR A REQ.TOKEN.SENDERID

@@ -6,6 +6,9 @@ const createGame = async (req, res) =>{
         //aca ver que pingo pongo
         console.log(req.body)
         const response = await provider.createGame(req.body);
+        if (response === 1){
+            return res.status(401).json({message: "El nombre de juego ya esta en uso!"});
+        }
         res.status(200).json({message: 'Juego creado', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});
