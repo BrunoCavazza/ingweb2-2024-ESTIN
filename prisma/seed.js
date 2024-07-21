@@ -130,6 +130,32 @@ async function main(){
             {name: "Baldur's Gate 3", description: "Gather your party, and return to the Forgotten Realms in a tale of fellowship and betrayal, sacrifice and survival, and the lure of absolute power. Mysterious abilities are awakening inside you, drawn from a Mind Flayer parasite planted in your brain. Resist, and turn darkness against itself. Or embrace corruption...", price: 60, mainPicture: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_616x353.jpg", owner: "michi", categories: {connect: [{name: "RPG"}]}, pictures: ["aslkjda"]},
 
     })
+
+    const rdr2 = await prisma.games.create({
+        data:
+            {name: "Red Dead Redemption 2", description: "America, 1899. The end of the Wild West era has begun. After a robbery goes badly wrong in the western town of Blackwater, Arthur Morgan and the Van der Linde gang are forced to flee. With federal agents and the best bounty hunters in the nation massing on their heels, the gang must rob, steal and fight their way across the rugged heartland of America in order to survive. As deepening internal divisions threaten to tear the gang apart, Arthur must make a choice between his own ideals and loyalty to the gang who raised him.", price: 60, mainPicture: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_616x353.jpg", owner: "elpepe", categories: {connect: [{name: "Adventure"}]}, pictures: ["aslkjda"]},
+
+    })
+
+    const gow = await prisma.games.create({
+        data:
+            {name: "God of War", description: "From Santa Monica Studio and creative director Cory Barlog comes a new beginning for one of gaming’s most recognizable icons. Living a life with his son Atreus, Kratos must adapt to unfamiliar lands, unexpected threats, and a second chance at being a father. Together with his son, he must venture into the brutal Norse wilds and fight to fulfill a deeply personal quest.", price: 60, mainPicture: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_616x353.jpg", owner: "elpepe", categories: {connect: [{name: "Action"}]}, pictures: ["aslkjda"]},
+    })
+
+    const shovknight = await prisma.games.create({
+        data:
+            {name: "Shovel Knight", description: "Shovel Knight is a sweeping classic action adventure game with awesome gameplay, memorable characters, and an 8-bit retro aesthetic created by Yacht Club Games. You play as the eponymous Shovel Knight, a small knight with a huge quest. Shovel Knight has come to this land with two goals: to defeat the evil Enchantress and quest for his lost beloved. He wields a Shovel Blade: a multipurpose weapon whose techniques have now been lost to the ages. Always honest and helpful, Shovel Knight is a shining example of the code of Shovelry: Slash Mercilessly and Dig Tirelessly!", price: 15, mainPicture: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_616x353.jpg", owner: "michi", categories: {connect: [{name: "Action"}]}, pictures: ["aslkjda"]},
+    })
+
+    const brawlhalla = await prisma.games.create({
+        data:
+            {name: "Brawlhalla", description: "An eternal battle arena where the greatest Legends ever brawl to prove who is the best that ever was, is, or will be. Every match is an epic test of skill, speed, and strength, and every victory brings additional glory and bragging rights to the winners.", price: 0, mainPicture: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_616x353.jpg", owner: "michi", categories: {connect: [{name: "Action"}]}, pictures: ["aslkjda"]},
+    })
+    
+    const cuphead = await prisma.games.create({
+        data:
+            {name: "Cuphead", description: "Cuphead is a classic run and gun action game heavily focused on boss battles. Inspired by cartoons of the 1930s, the visuals and audio are painstakingly created with the same techniques of the era, i.e. traditional hand drawn cel animation, watercolor backgrounds, and original jazz recordings.", price: 20, mainPicture: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_616x353.jpg", owner: "michi", categories: {connect: [{name: "Action"}]}, pictures: ["aslkjda"]},
+    })
     console.log(users)
 
 } 

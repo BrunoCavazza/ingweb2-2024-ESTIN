@@ -21,9 +21,12 @@ const gameService = new GameServices();
     }
 }*/
 
-const filter = async (req, res) =>{
+const getGamesPaged = async (req, res) =>{
+    console.log("aber q onda la query esta filtradora")
+    console.log(req.query)
+    console.log(req.body)
     try{
-        const response = await gameService.getGamesByFilter(req.params);
+        const response = await gameService.getGamesByFilter(req.query.category, req.body, req.query.page);
         res.status(200).json({message: 'Juegos filtrados', data: response});
     }catch(error){
         res.status(500).send({message: error.message});
@@ -40,7 +43,7 @@ const getAll = async (req, res) =>{
     }
 }
 
-const getGamesPaged = async (req, res) =>{
+/*const getGamesPaged = async (req, res) =>{
     console.log("params: ")
     console.log(req.query)
     console.log("body:")
@@ -56,13 +59,13 @@ const getGamesPaged = async (req, res) =>{
     } catch (error) {
         res.status(500).send({message: error.message});
     }
-}
+}*/
 
 
 
 const gameScreen = async (req, res) =>{
     try {
-        const response = await game.getGameById(req.params.id);
+        const response = await game.getGameById(req.query.id);
         res.status(200).json({message: 'Juego encontrado', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});
@@ -70,4 +73,4 @@ const gameScreen = async (req, res) =>{
 }
 
 
-module.exports = {filter, getAll, getGamesPaged, gameScreen};
+module.exports = {/*filter,*/ getAll, getGamesPaged, gameScreen};

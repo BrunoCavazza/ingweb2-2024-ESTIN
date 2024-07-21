@@ -10,6 +10,7 @@ function generateToken(user, role){
 }
 
 const verifyProvider = (req, res, next) => {
+    console.log(req.headers)
     const token = req.headers.tokenAuth;
     console.log("token de header verifyProv: "+token)
     console.log("token de header decodificado verifyProv: "+jwt.decode(token, JWT_SECRET))
