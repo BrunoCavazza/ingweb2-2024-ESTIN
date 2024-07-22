@@ -20,7 +20,8 @@ class ProviderServices {
         return provider;
     }
 
-    async createGame(body){
+    async createGame(body, ownerId){
+        console.log("EL ID DEL OWNER: "+ ownerId)
         console.log(body)
         const newGame = body;
         console.log("////////////////////////////////////")

@@ -27,7 +27,7 @@ const getGamesPaged = async (req, res) =>{
     console.log(req.body)
     try{
         const response = await gameService.getGamesByFilter(req.query.category, req.body, req.query.page);
-        res.status(200).json({message: 'Juegos filtrados', data: response});
+        res.status(200).json(response);
     }catch(error){
         res.status(500).send({message: error.message});
     }

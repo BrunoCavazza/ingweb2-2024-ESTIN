@@ -11,14 +11,17 @@ function generateToken(user, role){
 
 const verifyProvider = (req, res, next) => {
     console.log(req.headers)
-    const token = req.headers.tokenAuth;
+    const token = req.headers.token;
     console.log("token de header verifyProv: "+token)
     console.log("token de header decodificado verifyProv: "+jwt.decode(token, JWT_SECRET))
     if(!token){
-        return res.status(403).json({message: "NO AUTORIZADO"})
+        console.log("HOLA1")
+        return res.status(403).json({message: "NO HAY TOKEN, NO AUTORIZADO"})
     }
     try {
+        console.log("OPA ME METI EN EL TRY")
         const decoded = jwt.verify(token, JWT_SECRET);
+
         if(decoded.role === 'provider'){
             req.token = decoded;
             console.log("TOKEN DECODIFICADO EN VERIFY")

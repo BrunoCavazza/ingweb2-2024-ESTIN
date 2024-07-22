@@ -10,11 +10,13 @@ const game = require("./game.router");
 const login = require("./login.router");
 const library = require("./library.router");
 const transaction = require("./transaction.router");
+const wishlist = require("./wishlist.router");
 
 router.use(login)
 router.use(register)
 router.use("/games", game)
 router.use(library)
 router.use(transaction)
+router.use(wishlist)
 
 module.exports = router;

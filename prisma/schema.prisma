@@ -22,6 +22,7 @@ model Users{
   funds             Int
   email             String @unique
   transactions      Transaction[]
+  wishlist          Games[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 
 }
@@ -46,6 +47,7 @@ model Games{
   mainPicture       String
   pictures          String[] 
   transactions      Transaction[]
+  wishlist          Users[]
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt 
 }
