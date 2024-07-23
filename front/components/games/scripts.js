@@ -3,7 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchGames() {
-    const url = 'http://localhost:3010/games/';
+    const page = 1;
+    const url = 'http://localhost:3010/games/?page=' + page; 
     fetch(url)
         .then(response => {
             if (!response.ok) {

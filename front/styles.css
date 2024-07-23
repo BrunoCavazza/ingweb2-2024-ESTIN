@@ -101,6 +101,16 @@ body { /* Fondo animado*/
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+.LoggedIn{
+  color: transparent;
+  background-color: transparent;
+  border: none;
+}
+
+.UserItem{
+  font-family: "Pixelify Sans", sans-serif;
+}
+
 .bigFrame{
   padding-top: 3%;
   padding-left: 2%;

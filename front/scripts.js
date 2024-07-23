@@ -3,14 +3,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const loginButton = document.getElementById('loginButton');
     const userContainer = document.getElementById('userContainer');
     const userNameElement = document.getElementById('userName');
+    const modalogin = document.getElementById('modalogin');
+    const modalInstance = modalogin ? bootstrap.Modal.getInstance(modalogin) : null;
+    const logoutButton = document.getElementById('logoutButton'); //logout button
+
+    // Function to show logged in UI
+    function showLoggedInUI(username) {
+        loginbtn.style.display = 'none';
+        if (modalInstance) modalInstance.hide();
+        userContainer.style.display = 'block';
+        userNameElement.textContent = username;
+    }
+
+    // Check if already logged in
+    const token = sessionStorage.getItem('token');
+    if (token) {
+        // Optionally, retrieve and set the username if stored in sessionStorage or another method
+        const username = sessionStorage.getItem('username'); // Assuming username is stored
+        showLoggedInUI(username || 'User'); // Default to 'User' if username not available
+    }
 
     loginButton.addEventListener('click', async (e) => {
         e.preventDefault();
 
         const username = document.getElementById('loginUsername').value;
         const password = document.getElementById('loginPassword').value;
-        const modalogin = document.getElementById('modalogin');
-        const modalInstance = bootstrap.Modal.getInstance(modalogin);
 
         try {
             const response = await fetch('http://localhost:3010/login', {
@@ -26,10 +43,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Login exitoso!');
                 console.log('Token saved:', data.token);
                 sessionStorage.setItem('token', data.token);
-                loginbtn.style.display = 'none';
-                modalInstance.hide();
-                userContainer.style.display = 'block';
-                userNameElement.textContent = username;
+                sessionStorage.setItem('username', username); // Save username for UI update
+                showLoggedInUI(username);
             } else {
                 alert('Error: ' + data.error);
             }
@@ -37,4 +52,21 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error:', error);
         }
     });
+    
+    logoutButton.addEventListener('click', () => {
+        logoutUser();
+    });
+
+    function logoutUser() {
+        // Remove the token and username from sessionStorage
+        sessionStorage.removeItem('token');
+        sessionStorage.removeItem('username');
+
+        // Update the UI to reflect the logged-out state
+        // This might include showing the login button, hiding the user container, etc.
+        loginbtn.style.display = 'block'; // Assuming 'loginbtn' is your login button
+        userContainer.style.display = 'none'; // Assuming 'userContainer' is the container showing user info
+        window.location.reload(); // Refresh the page
+    }
+   
 });

@@ -98,8 +98,18 @@
             <div class="col-sm-4">
               <!-- Button trigger modal -->
               <div id="userContainer" style="display: none;">
-                <h1 id="userName">USERNAME</h1>
+                <div class="dropdown-center" data-bs-theme="dark">
+                  <button id="userContainer" class="LoggedIn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <h1 id="userName">USERNAME</h1>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li><button class="UserItem dropdown-item" type="button">Library</button></li>
+                    <li><button id="logoutButton" class="UserItem dropdown-item" type="button">Logout</button></li>
+                  </ul>
+                </div>
               </div>
+              
+              </button>
               <button type="button" class="login" id="loginbtn" data-bs-toggle="modal" data-bs-target="#modalogin">
                 <strong class="pixel_font_login">Log in</strong>
                 <div id="container-stars">
@@ -111,6 +121,8 @@
                   <div class="circle"></div>
                 </div>
               </button>
+
+              
 
               <!-- Modal login -->
               <div class="modal fade" id="modalogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
