@@ -1,5 +1,5 @@
 const TransactionServices = require('../services/transaction.services');
-const transaction = new TransactionServices();
+const transactionService = new TransactionServices();
 const jwt = require('jsonwebtoken');
 
 
@@ -8,8 +8,11 @@ const buyGame = async (req, res) => {
     /*const decodedToken = jwt.verify(req.headers.tokenauth, 'secret');
     console.log("token decodificado:")
     console.log(decodedToken)*/
+    if(req.query.receiverId === req.token.id){
+        return res.status(401).json({message: "No necesitas comprarte a vos mismo!"});
+    }
     try {
-        const successTransac = await transaction.buyGame(req.body.senderId, req.body.receiver, req.body.gameId);
+        const successTransac = await transactionService.buyGame(req.token.id, req.query.receiverId, req.query.gameId);
                                                             //ACORDARSE DE CAMBIAR A REQ.TOKEN.SENDERID
         if(successTransac){
             res.status(200).json({message: 'Transaccion realizada', data: successTransac});
@@ -52,9 +55,9 @@ const buyGame = async (req, res) => {
 const addFunds = async (req, res) => {
     try {
         if(req.body.amount > 0){
-            const response = await transaction.addFunds(req.body.user, req.body.amount);
+            const response = await transactionService.addFunds(req.token.id, req.body.amount);
             res.status(200).json({message: 'Fondos agregados', data: response});
-        }else res.status(401).json({message: "No se puede agregar fondos negativos."});
+        }else res.status(401).json({message: "No se puede agregar fondos negativos!"});
     } catch (error) {
         res.status(500).send({message: error.message});
     }

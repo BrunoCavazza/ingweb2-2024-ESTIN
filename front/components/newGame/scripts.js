@@ -35,9 +35,10 @@ function submitForm() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'tokenAuth': `Bearer ${hash}`
+            'tokenauth': `${hash}`
         },
         body: body
+        
     })
     .then(response => response.json())
     .then(data => {

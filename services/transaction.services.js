@@ -4,58 +4,27 @@ class TransactionServices{
     constructor(){
     }
 
-    async buyGame(senderId, receiver, gameId){
+    async buyGame(senderId, receiverId, gameId){
         const prisma = new PrismaClient.PrismaClient();
-                
-        const senderLibCheck = await prisma.users.findUnique({ 
-            where: { 
-                id: senderId
-            },
-            include: {
-                libraries: true
-            }
-        });
-
-        console.log("LIB")
-        console.log(senderLibCheck)
-
-
-        let senderLib = 0;
-        if(!senderLibCheck.libraries){
-            senderLib = await prisma.libraries.create({
-                data: {
-                    user_id: senderId,
-                    tmp_game_id: 0
-                }
-            });
-
-        }else{
-            senderLib = await prisma.libraries.findUnique({
-                where: {
-                    user_id: senderId
-                }
-            })
-        }
-
-        const libraryGod = await prisma.libraries.findUnique({
-            where:{
-                user_id: senderId
-            }
-        })
-        console.log(libraryGod)
 
         try {
             let amount = await prisma.games.findUnique({
                 where: {
                     id: gameId
+                },
+                select: {
+                    price: true
                 }
             })
-            let balanceCheck = await prisma.users.findUnique({
+            let userFunds = await prisma.users.findUnique({
                 where:{
                     id: senderId
+                },
+                select:{
+                    funds: true
                 }
             })
-            if(balanceCheck.funds < amount.price){
+            if(userFunds < amount){
                 throw new Error("No hay suficientes fondos")
             }
             
@@ -66,45 +35,55 @@ class TransactionServices{
                     },
                     data: {
                         funds: {
-                            decrement: amount.price
+                            decrement: price
                         }
                     }
                 }),
                 
                 prisma.users.update({
                     where: {
-                        username: receiver
+                        username: receiverId
                     },
                     data: {
                         funds: {
-                            increment: amount.price
+                            increment: price
                         }
                     }
                 }),
-                prisma.libraries.update({
-                    where: {
-                        user_id: senderId
-                    },
-                    data: {
-                        tmp_game_id: gameId
+                prisma.transaction.create({
+                    data:{
+                        user_id: senderId,
+                        game_id: gameId,
                     }
                 }),
                 
             ]);
-            console.log("EPA")
-            console.log(result[2].id)
-            const gameOnLib = await prisma.gamesOnLibrary.create({
+            if(result){
+                const wishlistCheck = await prisma.wishlist.findUnique({
+                    where:{
+                        user_id: senderId,
+                        game_id: gameId
+                    }
+                })
+                if(wishlistCheck){
+                    await prisma.wishlist.delete({
+                        where:{
+                            user_id: senderId,
+                            game_id: gameId
+                        }
+                    })
+                }
+            }
+            /*const gameOnLib = await prisma.gamesOnLibrary.create({
                 data:{
                     fk_game_lib: {connect:{id: gameId}},
                     fk_lib_game: {connect:{id: result[2].id}}  
                 }
-            })
-            console.log(gameOnLib)
+            })*/
             return {
                 sender: result[0],
                 receiver: result[1],
-                library: result[2],
-                gameOnLib: gameOnLib
+                library: result[2]
             };
 
         } catch (error) {
@@ -112,13 +91,13 @@ class TransactionServices{
         }
     }
 
-    async addFunds(user, amount){
+    async addFunds(userId, amount){
         const prisma = new PrismaClient.PrismaClient();
        
         try {
             const result = await prisma.users.update({
                 where: {
-                    username: user
+                    user_id: userId
                 },
                 data: {
                     funds: {

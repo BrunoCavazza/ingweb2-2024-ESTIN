@@ -5,9 +5,10 @@ const verifyToken = require("../utils/verifyToken.middleware.js");
 const provider = require ("../router/provider.router.js")
 
 router
-    .get('/', gameController.getGamesPaged)
+    .get('/', gameController.getGamesByPage)
     .get('/:id', gameController.gameScreen)
-    
+    .delete(gameController.deleteGame)
+
 router.use(verifyToken.verifyProvider, provider);
 
 module.exports = router;

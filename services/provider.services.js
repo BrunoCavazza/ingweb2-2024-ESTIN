@@ -89,7 +89,7 @@ class ProviderServices {
                 name: newGame.name,
                 description: newGame.description,
                 price: newGame.price,
-                owner: newGame.owner,
+                owner: ownerId,
                 mainPicture: newGame.mainPicture,
                 pictures: newGame.pictures,
                 categories: {

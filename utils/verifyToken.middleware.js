@@ -11,7 +11,8 @@ function generateToken(user, role){
 
 const verifyProvider = (req, res, next) => {
     console.log(req.headers)
-    const token = req.headers.token;
+    console.log(req.headers.tokenauth)
+    const token = req.headers.tokenauth;
     console.log("token de header verifyProv: "+token)
     console.log("token de header decodificado verifyProv: "+jwt.decode(token, JWT_SECRET))
     if(!token){
@@ -38,7 +39,7 @@ const verifyProvider = (req, res, next) => {
 }
 
 const verifyCustomer = (req, res, next) => {
-    const token = req.headers.tokenAuth;
+    const token = req.headers.tokenauth;
     console.log("token de header verifyCust: "+token)
     console.log("token de header decodificado verifyCust: "+jwt.decode(token, JWT_SECRET))
     

@@ -36,7 +36,7 @@ class GameServices{
         return game;
     }*/  
 
-    async getGamesByFilter(categoriesFilter, nameFilter, page){
+    async getGamesByPage(categoriesFilter, nameFilter, page){
         const prisma = new PrismaClient();
         console.log(nameFilter)
         console.log("page")
@@ -93,7 +93,18 @@ class GameServices{
         return game;
     }
 
-    async getAllGames(){
+    async deleteGame(gameId){
+        const prisma = new PrismaClient();
+        const game = await prisma.games.delete({
+            where: {
+                id: gameId
+            }
+        });
+        return game;
+    }
+
+
+    /*async getAllGames(){
         const prisma = new PrismaClient();
         const game = await prisma.games.findMany();
         return game;
@@ -123,7 +134,7 @@ class GameServices{
         console.log("JUEGUITOS")
         console.log(game)
         return game;
-    }
+    }*/
 
     /*async transaction(senderId, receiverId, amount){
         const prisma = new PrismaClient.PrismaClient();
