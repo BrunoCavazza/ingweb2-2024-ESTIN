@@ -21,6 +21,16 @@ const gameService = new GameServices();
     }
 }*/
 
+const getHomePage = async (req, res) =>{
+    try {
+        const response = await gameService.getHomePage();
+        console.log("sexo?")
+        res.status(200).json(response);
+    } catch (error) {
+        res.status(500).send({message: error.message});
+    }
+}
+
 const getGamesByPage = async (req, res) =>{
     console.log("aber q onda la query esta filtradora")
     console.log(req.query)
@@ -74,4 +84,4 @@ const gameScreen = async (req, res) =>{
 
 
 
-module.exports = {/*filter, getAll,*/ getGamesByPage, gameScreen};
+module.exports = {/*filter, getAll,*/ getGamesByPage, gameScreen, getHomePage};

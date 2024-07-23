@@ -6,7 +6,7 @@ class GameServices{
     }
 
     
-    async getGameById(gameId){
+    /*async getGameById(gameId){
         const prisma = new PrismaClient();
         const game = await prisma.games.findUnique({
             where: {
@@ -14,7 +14,7 @@ class GameServices{
             }
         });
         return game;
-    }
+    }*/
 
     /*async getGameByName(gameSearch){
         const prisma = new PrismaClient();
@@ -93,7 +93,25 @@ class GameServices{
         return game;
     }
 
+    async getHomePage(){
+        const prisma = new PrismaClient();
+        const game = await prisma.games.findMany({
+            where: {
+                onsale: 1
+            }
+        });
+        return game;
+    }
 
+    async getGameById(gameId){
+        const prisma = new PrismaClient();
+        const game = prisma.games.findUnique({
+            where: {
+                id: gameId
+            }
+        });
+        return game;
+    }
 
     /*async getAllGames(){
         const prisma = new PrismaClient();
