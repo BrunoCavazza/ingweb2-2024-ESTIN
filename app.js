@@ -4,9 +4,10 @@ const router = require('./router/all');
 
 const app = express()
 const port = 3010
-
-//const appDataSource = require('./db/db.js');
-
+const {randomOnSale, originalPrices} = require('./utils/randomOnSale');
+const pickRandom = require('./utils/pickRandom');
+const {PrismaClient} = require('@prisma/client');
+const prisma = new PrismaClient();
 //const allRouter = require('./router/all');
 //const router = require('./router/all');
 
@@ -20,8 +21,45 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
 
-app.listen(port, ()=> {
+async function gracefulShutdown() {
+    console.log('Shutting down');
+    /*console.log("check check")
+    console.log(originalPrices)
+    for (let [gameId, originalPrice] of originalPrices) {
+        console.log("SEXOOOOOO")
+        let restored = await prisma.games.update({
+          where: { id: gameId },
+          data: { price: originalPrice }
+        });
+        console.log(restored)
+    }
+    console.log(restored)
+    console.log('Original prices restored');*/
+    await prisma.$disconnect();
+    process.exit(0);
+}
+
+app.listen(port, async () => {
     console.log(`Running on port http://localhost:${port}`);
+    /*await randomOnSale();*/
+    await pickRandom();
+});
+
+process.on('SIGTERM', async () =>{ 
+    
+    gracefulShutdown().catch(err => {
+        console.error("error en cierre: ", err);
+        process.exit(1);
+    })
+});
+process.on('SIGINT', async () => {
+    try {
+        await gracefulShutdown();
+        process.exit(0);
+    } catch (err) {
+        console.error("error en cierre: ", err);
+        process.exit(1);
+    }
 });
 /*appDataSource.initialize()
   .then(() => {

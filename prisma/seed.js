@@ -149,7 +149,7 @@ async function main(){
 
     const brawlhalla = await prisma.games.create({
         data:
-            {name: "Brawlhalla", description: "An eternal battle arena where the greatest Legends ever brawl to prove who is the best that ever was, is, or will be. Every match is an epic test of skill, speed, and strength, and every victory brings additional glory and bragging rights to the winners.", price: 0, mainPicture: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_616x353.jpg", owner: "michi", categories: {connect: [{name: "Action"}]}, pictures: ["aslkjda"]},
+            {name: "Brawlhalla", description: "An eternal battle arena where the greatest Legends ever brawl to prove who is the best that ever was, is, or will be. Every match is an epic test of skill, speed, and strength, and every victory brings additional glory and bragging rights to the winners.", price: 40, mainPicture: "https://cdn.cloudflare.steamstatic.com/steam/apps/1174180/capsule_616x353.jpg", owner: "michi", categories: {connect: [{name: "Action"}]}, pictures: ["aslkjda"]},
     })
     
     const cuphead = await prisma.games.create({

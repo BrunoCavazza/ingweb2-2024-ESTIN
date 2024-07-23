@@ -33,46 +33,7 @@ class ProviderServices {
         const categoriesData = newGame.categories.map(category => ({ name: category }));
         console.log("valores de categorias:")
         console.log(categoriesData)
-        /*const categoriesValues = await prisma.categories.findMany({
-            where: {
-                name: {
-                    in: newGame.categories
-                }
-            }
         
-        });
-
-        const gameOnCategories = await prisma.categoriesOnGames.findMany({
-            where: {
-                category_id: {
-                    in: categoriesValues.map(category => category.id)
-                }
-            }
-
-        });*/
-        //console.log(gameOnCategories)
-        /*let idArray = [];
-        for (let i = 0; i < newGame.categories.length; i++) {
-            const category = newGame.categories[i];
-            console.log(category)
-            const categoryExists = await prisma.categories.findMany({
-                where: {
-                    name: category
-                }
-            });
-            console.log(categoryExists)
-            console.log(categoryExists[0].id)
-            idArray.push(categoryExists[0].id)
-            /*if(categoryExists.length == 0){
-                const newCategory = await prisma.categories.create({
-                    data: {
-                        name: category
-                    }
-                });
-                console.log(newCategory)
-            }
-        }
-        console.log(idArray)*/
         console.log("SEXO")
         const gameCheck = await prisma.games.findUnique({
             where: {
@@ -106,36 +67,40 @@ class ProviderServices {
         });
         console.log("aber " +game.id)
 
-
-        /*for (let i = 0; i < idArray.length; i++) {
-            const category = idArray[i];
-            console.log(category)
-            gameOnCat = await prisma.categoriesOnGames.create({
-                data: {
-                    fk_cat_game: {connect: {id: category}},
-                    fk_game_cat: {connect: {id: gameid}}
-                        
-                }
-            });
-        }*/
-        /*gameOnCat = await prisma.categoriesOnGames.create({
-            data: {
-                fk_cat_game: idArray,
-                fk_game_cat: gameid,
-                    
-                
-            }
-        });*/
-
-
     }
 
+    async deleteGame(gameId, username){
+        const prisma = new PrismaClient();
+        const ownerCheck = await prisma.games.findUnique({
+            where: {
+                id: gameId
+            },
+            select: {
+                owner: true
+            }
 
-    async getProviderGames(ownerId){
+        });
+        console.log(ownerCheck.owner)
+        console.log(username)
+        if(username===ownerCheck.owner){
+            console.log("acceso permitido")
+            const game = await prisma.games.delete({
+                where: {
+                    id: gameId
+                }
+            });
+            return game;
+        }else{
+            console.log("que haces pibe esto no es tuyo")
+            return 1;
+        }
+    }
+
+    async getProviderGames(username){
         const prisma = new PrismaClient();
         const games = await prisma.games.findMany({
             where: {
-                owner: ownerId
+                owner: username
             }
         });
         
@@ -143,6 +108,50 @@ class ProviderServices {
         return games;
     }
 
+    async updateGame(gameId, update, username){
+        console.log(update)
+        const prisma = new PrismaClient();
+
+        const ownerCheck = await prisma.games.findUnique({
+            where: {
+                id: gameId
+            },
+            select: {
+                owner: true
+            }
+
+        });
+        console.log(ownerCheck.owner)
+        console.log(username)
+        if(username===ownerCheck.owner){
+            console.log("acceso permitido")
+            const game = await prisma.games.update({
+                where: {
+                    id: gameId
+                },
+                data: {
+                    name: update.name,
+                    description: update.description,
+                    price: update.price,
+                    mainPicture: update.mainPicture,
+                    pictures: update.pictures,
+                    categories: {
+                        connectOrCreate: update.categories ? update.categories.map( (category) => {
+                            return {
+                                where: {name: category},
+                                create: {name: category}
+                            } 
+                        
+                        }) : []
+                    }
+                }
+            });
+            return game;
+        }else{
+            console.log("que haces pibe esto no es tuyo")
+            return 1;
+        }
+    }
 
 
 }

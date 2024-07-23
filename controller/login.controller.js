@@ -1,8 +1,3 @@
-const ProviderServices = require("../services/provider.services");
-const providerService = new ProviderServices();
-const CustomerServices = require ("../services/customer.services");
-const customerService = new CustomerServices();
-
 const LoginServices = require("../services/login.services"); 
 const loginService = new LoginServices();
 

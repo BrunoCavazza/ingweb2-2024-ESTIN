@@ -6,10 +6,9 @@ const provider = require ("../router/provider.router.js")
 
 router
     .get('/', gameController.getGamesByPage)
-    .get('/:id', gameController.gameScreen)
-    .delete(gameController.deleteGame)
+    .get('/:name', gameController.gameScreen)    
 
-router.use(verifyToken.verifyProvider, provider);
+router.use('/createGame',verifyToken.verifyProvider, provider);
 
 module.exports = router;
     

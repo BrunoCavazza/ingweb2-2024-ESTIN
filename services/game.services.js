@@ -93,15 +93,6 @@ class GameServices{
         return game;
     }
 
-    async deleteGame(gameId){
-        const prisma = new PrismaClient();
-        const game = await prisma.games.delete({
-            where: {
-                id: gameId
-            }
-        });
-        return game;
-    }
 
 
     /*async getAllGames(){
