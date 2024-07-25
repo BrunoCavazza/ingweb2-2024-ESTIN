@@ -5,11 +5,11 @@ const verifyToken = require("../utils/verifyToken.middleware.js");
 const provider = require ("../router/provider.router.js")
 
 router
-    .get('/', gameController.getGamesByPage)
-    .get('/:id', gameController.gameScreen)
-    .delete(gameController.deleteGame)
+    .get('/search', gameController.getGamesByPage)
+    .get('/game/:name', gameController.gameScreen)    
+    .get('/home', gameController.getHomePage)
 
-router.use(verifyToken.verifyProvider, provider);
+router.use('/createGame',verifyToken.verifyProvider, provider);
 
 module.exports = router;
     

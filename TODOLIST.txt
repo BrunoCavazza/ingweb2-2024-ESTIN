@@ -1,11 +1,11 @@
 ORDEN DE WEAS:
 - me mato
-- hago que funcione joyita joyita el login con token (1)
-- hago que funcione el register joyita joyita (2)
+- hago que funcione joyita joyita el login con token (1) -CHECK
+- hago que funcione el register joyita joyita (2) -CHECK
 - hago que funcione bien la library y la devolucion (3)
-- hago que funcione mejor el crear juego, añadiendo las categorias si no existen (4)
-- hago que funcione mejor el paginado (5)
-- hago que funcione la busqueda por tag o por texto (6)
+- hago que funcione mejor el crear juego, añadiendo las categorias si no existen (4) -CHECK
+- hago que funcione mejor el paginado (5) -CHECK
+- hago que funcione la busqueda por tag o por texto (6) -CHECK
 - creo los favs (7)
 
 - la puta madre me voy a matar

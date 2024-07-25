@@ -7,11 +7,44 @@ class WishlistServices{
 
     async getUserWishlist(userId){
         const prisma = new PrismaClient();
-        const wishlist = await prisma.wishlist.findMany({
+        const wishlist = await prisma.users.findMany({
+            where: {
+                id: userId
+            },
+            select: {
+                wishlist: true
+            }
+        });
+
+        return wishlist;
+    }
+
+    async addWish(userId, gameId){
+        const prisma = new PrismaClient();
+        
+        console.log("userId: " + userId);
+        console.log("gameId: " + gameId);
+
+        const transactionCheck = await prisma.transaction.findFirst({
             where: {
                 user_id: userId,
-                include: {
-                    games: true
+                game_id: gameId
+            }
+        });
+        
+        if(transactionCheck){
+            throw new Error("Ya tenes el juego comprado!");
+        }
+        console.log("SEXO")
+        const wishlist = await prisma.users.update({
+            where: {
+                id: userId
+            },
+            data: {
+                wishlist: {
+                    connect: {
+                        id: gameId
+                    }
                 }
             }
         });
@@ -19,28 +52,21 @@ class WishlistServices{
         return wishlist;
     }
 
-    async addGameToWishlist(userId, gameId){
+    async deleteWish(userId, gameId){
         const prisma = new PrismaClient();
-
-        const wishlist = await prisma.wishlist.create({
-            data: {
-                user_id: userId,
-                game_id: gameId
-            }
-        });
-
-        return wishlist;
-    }
-
-    async removeGameFromWishlist(userId, gameId){
-        const prisma = new PrismaClient();
-        const wishlist = await prisma.wishlist.delete({
+        const wishlist = await prisma.users.update({
             where: {
-                user_id: userId,
-                game_id: gameId
+                id: userId
+            },
+            data: {
+                wishlist: {
+                    disconnect: {
+                        id: gameId
+                    }
+                }
             }
         });
-
+    
         return wishlist;
     }
 }

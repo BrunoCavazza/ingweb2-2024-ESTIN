@@ -4,9 +4,10 @@ const router = require('./router/all');
 
 const app = express()
 const port = 3010
-
-//const appDataSource = require('./db/db.js');
-
+const {randomOnSale, originalPrices} = require('./utils/randomOnSale');
+const pickRandom = require('./utils/pickRandom');
+const {PrismaClient} = require('@prisma/client');
+const prisma = new PrismaClient();
 //const allRouter = require('./router/all');
 //const router = require('./router/all');
 
@@ -14,14 +15,82 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const webSocket = require('ws');
+
 /*app.use((req, res) => {
     res.status(404).send('Not Found');
 })*/
 
 app.use(router);
 
-app.listen(port, ()=> {
+async function gracefulShutdown() {
+    console.log('Shutting down');
+    /*console.log("check check")
+    console.log(originalPrices)
+    for (let [gameId, originalPrice] of originalPrices) {
+        console.log("SEXOOOOOO")
+        let restored = await prisma.games.update({
+          where: { id: gameId },
+          data: { price: originalPrice }
+        });
+        console.log(restored)
+    }
+    console.log(restored)
+    console.log('Original prices restored');*/
+    await prisma.$disconnect();
+    process.exit(0);
+}
+
+const webSocketServer = new webSocket.Server({ noServer: true });
+
+async function getGamesCount(){
+    const count = await prisma.games.count();
+    return count;
+}
+
+webSocketServer.on('connection', async (ws) => {
+    console.log('Client connected');
+    try {
+        const count = await getGamesCount();
+        ws.send(JSON.stringify({count}));
+        ws.on('close', () => {
+        console.log('Client disconnected');
+    });
+    } catch (error) {
+        ws.send(JSON.stringify({error: "error al fetchear la cantidad"}));
+    }
+    
+})
+
+
+
+const server = app.listen(port, async () => {
     console.log(`Running on port http://localhost:${port}`);
+    /*await randomOnSale();*/
+    await pickRandom();
+});
+
+server.on('upgrade', (request, socket, head) => {
+    webSocketServer.handleUpgrade(request, socket, head, (ws) => {
+        webSocketServer.emit('connection', ws, request);
+    });
+})
+
+process.on('SIGTERM', async () =>{ 
+    
+    gracefulShutdown().catch(err => {
+        console.error("error en cierre: ", err);
+        process.exit(1);
+    })
+});
+process.on('SIGINT', async () => {
+    try {
+        await gracefulShutdown();
+        process.exit(0);
+    } catch (err) {
+        console.error("error en cierre: ", err);
+        process.exit(1);
+    }
 });
 /*appDataSource.initialize()
   .then(() => {

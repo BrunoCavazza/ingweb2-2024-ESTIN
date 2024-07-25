@@ -4,7 +4,9 @@ const router = express.Router()
 const providerController = require('../controller/provider.controller')
 
 router
-    .post('/createGame', providerController.createGame)
-    .get(providerController.getProviderGames)
+    .post(providerController.createGame)
+    .get('/getGames',providerController.getProviderGames)
+    .delete('/deleteGame',providerController.deleteGame)
+    .post('/updateGame',providerController.updateGame)    
 
 module.exports = router;

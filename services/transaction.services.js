@@ -4,10 +4,33 @@ class TransactionServices{
     constructor(){
     }
 
-    async buyGame(senderId, receiverId, gameId){
+    async buyGame(senderId, receiverName, gameId){
         const prisma = new PrismaClient.PrismaClient();
 
         try {
+
+            let gameCheck = await prisma.transaction.findFirst({
+                where:{
+                    user_id: senderId,
+                    game_id: gameId
+                }
+            })
+            if(gameCheck){
+                return 1;
+            }
+            let userCheck = await prisma.users.findUnique({
+                where:{
+                    id: senderId
+                },
+                select:
+                {
+                    username: true
+                }
+            })
+
+            if(userCheck.username === receiverName){
+                return 3;
+            }
             let amount = await prisma.games.findUnique({
                 where: {
                     id: gameId
@@ -24,10 +47,13 @@ class TransactionServices{
                     funds: true
                 }
             })
-            if(userFunds < amount){
-                throw new Error("No hay suficientes fondos")
+            if(userFunds.funds < amount.price){
+                return 2;
             }
             
+            console.log(amount)
+            console.log(userFunds)
+
             const result = await prisma.$transaction([
                 prisma.users.update({
                     where: {
@@ -35,18 +61,18 @@ class TransactionServices{
                     },
                     data: {
                         funds: {
-                            decrement: price
+                            decrement: amount.price
                         }
                     }
                 }),
                 
                 prisma.users.update({
                     where: {
-                        username: receiverId
+                        username: receiverName
                     },
                     data: {
                         funds: {
-                            increment: price
+                            increment: amount.price
                         }
                     }
                 }),
@@ -59,31 +85,93 @@ class TransactionServices{
                 
             ]);
             if(result){
-                const wishlistCheck = await prisma.wishlist.findUnique({
+                const wishlistCheck = await prisma.users.findUnique({
                     where:{
-                        user_id: senderId,
-                        game_id: gameId
+                        id: senderId
+                    },
+                    select:{
+                        wishlist: {
+                            where:{
+                                id: gameId
+                            }
+                        }
                     }
                 })
                 if(wishlistCheck){
-                    await prisma.wishlist.delete({
-                        where:{
-                            user_id: senderId,
-                            game_id: gameId
+                    await prisma.users.update({
+                        where: {
+                            id: senderId
+                        },
+                        data: {
+                            wishlist: {
+                                disconnect: {
+                                    id: gameId
+                                }
+                            }
                         }
                     })
                 }
             }
-            /*const gameOnLib = await prisma.gamesOnLibrary.create({
-                data:{
-                    fk_game_lib: {connect:{id: gameId}},
-                    fk_lib_game: {connect:{id: result[2].id}}  
-                }
-            })*/
+
             return {
                 sender: result[0],
                 receiver: result[1],
                 library: result[2]
+            };
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    async refundGame(senderId, receiverId, gameId){
+        const prisma = new PrismaClient.PrismaClient();
+
+        let amount = await prisma.games.findUnique({
+            where: {
+                id: gameId
+            },
+            select: {
+                price: true
+            }
+        })
+        try {
+            const result = await prisma.$transaction([
+                prisma.users.update({
+                    where: {
+                        id: senderId
+                    },
+                    data: {
+                        funds: {
+                            increment: amount.price
+                        }
+                    }
+                }),
+                
+                prisma.users.update({
+                    where: {
+                        username: receiverName
+                    },
+                    data: {
+                        funds: {
+                            decrement: amount.price
+                        }
+                    }
+                }),
+                prisma.transaction.delete({
+                    where:{
+                        user_id: senderId,
+                        game_id: gameId,
+                    }
+                }),
+                
+            ]);
+
+            return {
+                sender: result[0],
+                receiver: result[1],
+                removed: result[2]
             };
 
         } catch (error) {
@@ -110,6 +198,7 @@ class TransactionServices{
             console.log(error)
         }
     }
+
 
 }
 
