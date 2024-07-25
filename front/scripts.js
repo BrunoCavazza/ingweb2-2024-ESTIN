@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Login exitoso!');
                 console.log('Token saved:', data.token);
                 sessionStorage.setItem('token', data.token);
-                sessionStorage.setItem('username', username); // Save username for UI update
+                sessionStorage.setItem('username', username); 
                 showLoggedInUI(username);
             } else {
                 alert('Error: ' + data.error);
@@ -61,12 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // Remove the token and username from sessionStorage
         sessionStorage.removeItem('token');
         sessionStorage.removeItem('username');
-
-        // Update the UI to reflect the logged-out state
-        // This might include showing the login button, hiding the user container, etc.
-        loginbtn.style.display = 'block'; // Assuming 'loginbtn' is your login button
-        userContainer.style.display = 'none'; // Assuming 'userContainer' is the container showing user info
-        window.location.reload(); // Refresh the page
+        loginbtn.style.display = 'block'; 
+        userContainer.style.display = 'none'; 
+        window.location.reload(); 
     }
    
 });

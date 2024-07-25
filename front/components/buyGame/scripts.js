@@ -48,17 +48,84 @@ function populateGameDetails(gameData) {
             secondaryImages[index].style.backgroundPosition = 'center';
         }
     });
-
+    const gameId = gameData.name;
+    const tokenId = sessionStorage.getItem('token');
+    const receiverId = gameData.owner;
+    async function buyGame(tokenId, receiverId, gameId) {
+        const url = 'http://localhost:3010/games/buyGame';
+        const data = {
+            tokenId: tokenId,
+            receiverId: receiverId,
+            gameId: gameId
+        };
+    
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const result = await response.json();
+            console.log('Success:', result);
+            return result;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
+    }
+    
+    
+    buyGame(tokenId, receiverId, gameId)
+        .then(result => {
+            // Manejar la respuesta aquí
+            console.log('Respuesta del servidor:', result);
+        })
+        .catch(error => {
+            // Manejar el error aquí
+            console.error('Error en la solicitud:', error);
+        });
+    
+    /*
     // Configurar el botón de compra
-    const buyButton = document.querySelector('.BuyButton');
-    buyButton.onclick = function() {
+    Button.className = 'BuyButton';
+    Button.onclick = buyGame(tokenId, receiverId, gameId);
+    
         alert(`You are buying: ${gameData.name} for ${gameData.price}$`);
-        // Aquí puedes agregar la lógica para el proceso de compra
-    };
-}
-
-// Ejecutar la función para obtener los parámetros y actualizar el contenido
-document.addEventListener('DOMContentLoaded', () => {
-    const gameData = getUrlParams();
-    populateGameDetails(gameData);
-});
+        // Función para comprar el juego
+        function buyGame(tokenId, receiverId, gameId) {
+            console.log("ENTREEEEEE!!!!");
+            // Crear el cuerpo de la solicitud
+            const requestBody = {
+                token: {
+                    id: tokenId
+                },
+                receiverId: receiverId,
+                gameId: gameId
+            };
+        
+            // Realizar la solicitud POST para comprar el juego
+            fetch('http://localhost:3010/games/buyGame', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestBody) // Enviar datos en el cuerpo de la solicitud
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Compra exitosa:', data);
+                // Acciones adicionales tras la compra exitosa
+            })
+            .catch((error) => {
+                console.error('Error en la compra:', error);
+            });
+        }
+   */
+};
