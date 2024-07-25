@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function fetchGames() {
     const page = 1;
-    const url = 'http://localhost:3010/games/?page=' + page; 
+    const url = 'http://localhost:3010/games/search/?page=' + page; 
     fetch(url)
         .then(response => {
             if (!response.ok) {

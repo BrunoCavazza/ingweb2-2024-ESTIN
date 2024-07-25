@@ -48,14 +48,14 @@ function populateGameDetails(gameData) {
             secondaryImages[index].style.backgroundPosition = 'center';
         }
     });
-    const gameId = gameData.name;
-    const tokenId = sessionStorage.getItem('token');
-    const receiverId = gameData.owner;
-    async function buyGame(tokenId, receiverId, gameId) {
+
+
+   
+
+    async function buyGame(receiverName, gameId) {
         const url = 'http://localhost:3010/games/buyGame';
         const data = {
-            tokenId: tokenId,
-            receiverId: receiverId,
+            receiverName: receiverName,
             gameId: gameId
         };
     
@@ -80,9 +80,11 @@ function populateGameDetails(gameData) {
             throw error;
         }
     }
-    
-    
-    buyGame(tokenId, receiverId, gameId)
+    document.querySelector('.BuyButton').addEventListener('click', function() {
+        const gameId = gameData.id;
+        const receiverName = sessionStorage.getItem('username');
+
+        buyGame(receiverName, gameId)
         .then(result => {
             // Manejar la respuesta aquí
             console.log('Respuesta del servidor:', result);
@@ -91,41 +93,6 @@ function populateGameDetails(gameData) {
             // Manejar el error aquí
             console.error('Error en la solicitud:', error);
         });
-    
-    /*
-    // Configurar el botón de compra
-    Button.className = 'BuyButton';
-    Button.onclick = buyGame(tokenId, receiverId, gameId);
-    
-        alert(`You are buying: ${gameData.name} for ${gameData.price}$`);
-        // Función para comprar el juego
-        function buyGame(tokenId, receiverId, gameId) {
-            console.log("ENTREEEEEE!!!!");
-            // Crear el cuerpo de la solicitud
-            const requestBody = {
-                token: {
-                    id: tokenId
-                },
-                receiverId: receiverId,
-                gameId: gameId
-            };
-        
-            // Realizar la solicitud POST para comprar el juego
-            fetch('http://localhost:3010/games/buyGame', {
-                method: 'POST', 
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(requestBody) // Enviar datos en el cuerpo de la solicitud
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Compra exitosa:', data);
-                // Acciones adicionales tras la compra exitosa
-            })
-            .catch((error) => {
-                console.error('Error en la compra:', error);
-            });
-        }
-   */
+});
+   
 };
