@@ -45,8 +45,9 @@ const getGamesByPage = async (req, res) =>{
 }
 
 const gameScreen = async (req, res) =>{
+    console.log(req.params)
     try {
-        const response = await gameService.getGameById(parseInt(req.query.id));
+        const response = await gameService.getGameByName(req.params.name);
         res.status(200).json({message: 'Juego encontrado', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});
