@@ -7,17 +7,17 @@ const buyGame = async (req, res) => {
     /*const decodedToken = jwt.verify(req.headers.tokenauth, 'secret');
     console.log("token decodificado:")
     console.log(decodedToken)*/
-    if(req.query.receiverId === req.token.id){
-        return res.status(401).json({message: "No necesitas comprarte a vos mismo!"});
-    }
+    
     try {
-        const successTransac = await transactionService.buyGame(req.token.id, parseInt(req.query.receiverId), parseInt(req.query.gameId));
+        const successTransac = await transactionService.buyGame(req.token.id, parseInt(req.query.receiverName), parseInt(req.query.gameId));
                                                             //ACORDARSE DE CAMBIAR A REQ.TOKEN.SENDERID
 
         if(successTransac === 1){
             res.status(400).json({message: "Ya tenes el juego en biblioteca!"});
         }else if(successTransac === 2){
             res.status(400).json({message: "No tenes suficientes fondos!"});
+        }else if(successTransac === 3){
+            res.status(200).json({message: 'No podes comprarte a vos mismo!', data: successTransac});
         }else if(successTransac){
             res.status(200).json({message: 'Transaccion realizada', data: successTransac});
         }else{
@@ -57,7 +57,7 @@ const buyGame = async (req, res) => {
 
 const refundGame = async (req, res) => {
     try {
-        const response = await transactionService.refundGame(parseInt(req.token.id), parseInt(req.query.receiverId), parseInt(req.query.gameId));
+        const response = await transactionService.refundGame(parseInt(req.token.id), parseInt(req.query.receiverName), parseInt(req.query.gameId));
         res.status(200).json({message: 'Juego eliminado', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});

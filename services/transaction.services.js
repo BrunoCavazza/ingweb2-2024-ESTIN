@@ -4,7 +4,7 @@ class TransactionServices{
     constructor(){
     }
 
-    async buyGame(senderId, receiverId, gameId){
+    async buyGame(senderId, receiverName, gameId){
         const prisma = new PrismaClient.PrismaClient();
 
         try {
@@ -18,7 +18,19 @@ class TransactionServices{
             if(gameCheck){
                 return 1;
             }
+            let userCheck = await prisma.users.findUnique({
+                where:{
+                    id: senderId
+                },
+                select:
+                {
+                    username: true
+                }
+            })
 
+            if(userCheck.username === receiverName){
+                return 3;
+            }
             let amount = await prisma.games.findUnique({
                 where: {
                     id: gameId
@@ -56,7 +68,7 @@ class TransactionServices{
                 
                 prisma.users.update({
                     where: {
-                        id: receiverId
+                        username: receiverName
                     },
                     data: {
                         funds: {
@@ -139,7 +151,7 @@ class TransactionServices{
                 
                 prisma.users.update({
                     where: {
-                        id: receiverId
+                        username: receiverName
                     },
                     data: {
                         funds: {
