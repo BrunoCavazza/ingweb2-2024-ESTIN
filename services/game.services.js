@@ -103,13 +103,16 @@ class GameServices{
         return game;
     }
 
-    async getGameById(gameId){
+    async getGameByName(name){
+        console.log("nombre de juego: " +name)
         const prisma = new PrismaClient();
-        const game = prisma.games.findUnique({
+        const game = await prisma.games.findUnique({
             where: {
-                id: gameId
+                name: name
             }
         });
+        console.log("jueguito:")
+        console.log(game)
         return game;
     }
 
