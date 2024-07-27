@@ -54,8 +54,6 @@ class GameServices{
         console.log("SEARCH1")
         console.log(search)
 
-        console.log(categoriesFilter)
-        console.log(categoriesFilter.length)
         console.log(!Array.isArray(categoriesFilter))
 
         if(categoriesFilter && !Array.isArray(categoriesFilter)){ //ESTO GUARDA LAS CATEGORIAS EN EL ARRAY DE BUSQUEDA FINAL
@@ -94,6 +92,14 @@ class GameServices{
         console.log("page size: "+pageSize)
         console.log("skip: "+skip)
 
+        const amount = await prisma.games.count({
+            where: where
+        });
+
+        console.log("juegos? "+amount);
+
+        const pageAmount = Math.ceil(amount/pageSize);
+        console.log("cant paginas: "+pageAmount)
 
         const game = await prisma.games.findMany({
             where: where,
@@ -106,7 +112,7 @@ class GameServices{
         });
         console.log("QUE PORONGA SE CREA ACA")
         console.log(game)
-        return game;
+        return {game, pageAmount};
     }
 
     async getHomePage(){

@@ -37,6 +37,8 @@ const getGamesByPage = async (req, res) =>{
     console.log(req.body)
     try{
         const response = await gameService.getGamesByPage(req.query.category, req.body, parseInt(req.query.page));
+        console.log("aver response")
+        console.log(response)
         res.status(200).json(response);
     }catch(error){
         res.status(500).send({message: error.message});
