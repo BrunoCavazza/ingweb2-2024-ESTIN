@@ -65,17 +65,40 @@ document.addEventListener('DOMContentLoaded', () => {
         userContainer.style.display = 'none'; 
         window.location.reload(); 
     }
+
+    // Leer la URL desde sessionStorage
+    const selectedURL = sessionStorage.getItem('selectedURL');
     
-    function changeIframeSource(category) {
-        console.log('Category:', category);
+    if (selectedURL) {
+        console.log('URL seleccionada:', selectedURL);
+        document.getElementById('urlDisplay').textContent = `URL seleccionada: ${selectedURL}`;
+    } else {
+        console.log('No se encontró ninguna URL seleccionada en sessionStorage.');
+    }
+    
+    window.addEventListener('message', function(event) {
+        if (event.origin !== window.location.origin && event.origin !== 'null') {
+            return;
+        }
+
+        const data = event.data;
+        if (data.url && data.category) {
+            console.log('Recibido mensaje con URL:', data.url, 'y categoría:', data.category);
+            changeIframeSource(data.url, data.category);
+        }
+    });
+    
+    function changeIframeSource(url, category) {
         const iframe = document.getElementById('MainContent');
-        iframe.src = "../buyGame/buyGame.html";
-    
-        // Aquí puedes manejar la categoría seleccionada como necesites
-        console.log('Category:', category);
-        // Por ejemplo, podrías pasar la categoría como un parámetro de consulta en la URL
-        iframe.onload = function() {
-            iframe.contentWindow.postMessage({ category: category }, '*');
-        };
+        if (iframe) {
+            console.log('Cambiando fuente del iframe a:', url);
+            iframe.onload = function() {
+                console.log('Iframe cargado, enviando categoría:', category);
+                iframe.contentWindow.postMessage({ category: category }, '*');
+            };
+            iframe.src = url;
+        } else {
+            console.error('Iframe con ID "MainContent" no encontrado.');
+        }
     }
 });

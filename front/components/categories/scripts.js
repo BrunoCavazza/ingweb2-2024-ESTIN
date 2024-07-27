@@ -2,57 +2,32 @@
 function changeIframeSource(url) {
     document.getElementById('MainContent').src = url;
 }
-
 const categories = [
-    {name: "Action"},
-    {name: "Adventure"},
-    {name: "Casual"},
-    {name: "Indie"},
-    {name: "Multiplayer"},
-    {name: "Racing"},
-    {name: "RPG"},
-    {name: "Simulation"},
-    {name: "Shooter"},
-    {name: "Sports"},
-    {name: "Strategy"},
-    {name: "MOBA"},
-    {name: "MMORPG"},
-    {name: "Battle Royale"},
-    {name: "Souls-like"},
-    {name: "Sandbox"},
-    {name: "Roguelike"},
-    {name: "Singleplayer"},
-    {name: "Fantasy"},
-    {name: "Horror"},
-    {name: "PVP"},
-    {name: "PVE"},
-    {name: "CO-OP"},
-    {name: "Realistic"},
-    {name: "Logic"},
-    {name: "Survival"},
-    {name: "Romance"},
-    {name: "Mature"},
-    {name: "Platformer"},
-    {name: "Fighting"},
-    {name: "Puzzle"},
-    {name: "Music"},
-    {name: "Educational"},
-    {name: "VR"},
-    {name: "Anime"},
-    {name: "Sci-fi"},
-    {name: "Cyberpunk"},
-    {name: "Post-apocalyptic"},
-    {name: "Historical"},
-    {name: "Medieval"},
-    {name: "Futuristic"},
-    {name: "Western"},
-    {name: "Military"},
-    {name: "Gacha"},
-    {name: "Open World"},
-    {name: "Zombies"},
-    {name: "RNG"}
+    {name: "Action"}, {name: "Adventure"}, {name: "Casual"}, {name: "Indie"}, 
+    {name: "Multiplayer"}, {name: "Racing"}, {name: "RPG"}, {name: "Simulation"}, 
+    {name: "Shooter"}, {name: "Sports"}, {name: "Strategy"}, {name: "MOBA"}, 
+    {name: "MMORPG"}, {name: "Battle Royale"}, {name: "Souls-like"}, {name: "Sandbox"}, 
+    {name: "Roguelike"}, {name: "Singleplayer"}, {name: "Fantasy"}, {name: "Horror"}, 
+    {name: "PVP"}, {name: "PVE"}, {name: "CO-OP"}, {name: "Realistic"}, {name: "Logic"}, 
+    {name: "Survival"}, {name: "Romance"}, {name: "Mature"}, {name: "Platformer"}, 
+    {name: "Fighting"}, {name: "Puzzle"}, {name: "Music"}, {name: "Educational"}, 
+    {name: "VR"}, {name: "Anime"}, {name: "Sci-fi"}, {name: "Cyberpunk"}, 
+    {name: "Post-apocalyptic"}, {name: "Historical"}, {name: "Medieval"}, 
+    {name: "Futuristic"}, {name: "Western"}, {name: "Military"}, {name: "Gacha"}, 
+    {name: "Open World"}, {name: "Zombies"}, {name: "RNG"}
 ];
 
+function changeIframeSource(url) {
+    // Almacenar la URL en sessionStorage
+    sessionStorage.setItem('selectedURL', url);
+
+    const iframe = document.getElementById('MainContent');
+    if (iframe) {
+        iframe.src = url;
+    } else {
+        console.error('Iframe con ID "MainContent" no encontrado.');
+    }
+}
 
 function createCategoryList(categories) {
     const categoryList = document.getElementById('categoryList');
@@ -63,8 +38,7 @@ function createCategoryList(categories) {
         li.addEventListener('click', () => {
             const selectedCategory = category.name;
             console.log('Selected Category:', selectedCategory);
-            // Cambiar la fuente del iframe padre
-            window.parent.changeIframeSource(`../buyGame/buyGame.html`, selectedCategory);
+            changeIframeSource('./front/components/buyGame/buyGame.html'); // Aquí se puede usar una lógica más avanzada para determinar la URL basada en la categoría
         });
         categoryList.appendChild(li);
     });
@@ -72,22 +46,4 @@ function createCategoryList(categories) {
 
 document.addEventListener("DOMContentLoaded", function() {
     createCategoryList(categories);
-});
-
-function changeIframeSource(category) {
-    iframe.onload = function() {
-        iframe.contentWindow.postMessage({ category: category }, '*');
-    };
-}
-window.addEventListener('message', function(event) {
-    if (event.origin !== window.location.origin) {
-        // Ignorar mensajes de orígenes no confiables
-        return;
-    }
-
-    const data = event.data;
-    if (data.category) {
-        console.log('Received Category:', data.category);
-        // Manejar la categoría recibida
-    }
 });
