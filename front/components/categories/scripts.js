@@ -53,16 +53,41 @@ const categories = [
     {name: "RNG"}
 ];
 
+
 function createCategoryList(categories) {
     const categoryList = document.getElementById('categoryList');
     categories.forEach(category => {
         const li = document.createElement('li');
         li.className = 'tag__name';
         li.textContent = category.name;
+        li.addEventListener('click', () => {
+            const selectedCategory = category.name;
+            console.log('Selected Category:', selectedCategory);
+            // Cambiar la fuente del iframe padre
+            window.parent.changeIframeSource(`../buyGame/buyGame.html`, selectedCategory);
+        });
         categoryList.appendChild(li);
     });
 }
 
 document.addEventListener("DOMContentLoaded", function() {
     createCategoryList(categories);
+});
+
+function changeIframeSource(category) {
+    iframe.onload = function() {
+        iframe.contentWindow.postMessage({ category: category }, '*');
+    };
+}
+window.addEventListener('message', function(event) {
+    if (event.origin !== window.location.origin) {
+        // Ignorar mensajes de orígenes no confiables
+        return;
+    }
+
+    const data = event.data;
+    if (data.category) {
+        console.log('Received Category:', data.category);
+        // Manejar la categoría recibida
+    }
 });

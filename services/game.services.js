@@ -79,14 +79,35 @@ class GameServices{
         console.log("skip: "+skip)
 
 
+        const categoriesString = '["Action", "RPG"]'; // Example string representation of an array
+        const categories = JSON.parse(categoriesString); // Parse it into an array
+        
         const game = await prisma.games.findMany({
-            where: where,
-            include: {
-                categories: true
-            },
-            skip: skip,
-            take: pageSize 
-
+          where: {
+            AND: [
+              {
+                name: {
+                  contains: undefined, // Ensure this is a valid string or remove it if not needed
+                  mode: "insensitive"
+                }
+              },
+              {
+                categories: {
+                  some: {
+                    name: {
+                      in: categories, // Pass the parsed array of strings
+                      mode: "insensitive"
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          include: {
+            categories: true
+          },
+          skip: 0,
+          take: 9
         });
         console.log("QUE PORONGA SE CREA ACA")
         console.log(game)

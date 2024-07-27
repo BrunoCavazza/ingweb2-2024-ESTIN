@@ -65,5 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
         userContainer.style.display = 'none'; 
         window.location.reload(); 
     }
-   
+    
+    function changeIframeSource(category) {
+        console.log('Category:', category);
+        const iframe = document.getElementById('MainContent');
+        iframe.src = "../buyGame/buyGame.html";
+    
+        // Aquí puedes manejar la categoría seleccionada como necesites
+        console.log('Category:', category);
+        // Por ejemplo, podrías pasar la categoría como un parámetro de consulta en la URL
+        iframe.onload = function() {
+            iframe.contentWindow.postMessage({ category: category }, '*');
+        };
+    }
 });

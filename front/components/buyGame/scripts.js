@@ -1,7 +1,7 @@
 // Función para obtener los parámetros de la URL
 function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
-    return {
+    const urlParams = {
         name: params.get('name'),
         description: params.get('description'),
         owner: params.get('owner'),
@@ -11,6 +11,10 @@ function getUrlParams() {
         price: params.get('price'),
         id: params.get('id')
     };
+
+    console.log('URL Parameters:', urlParams);
+
+    return urlParams;
 }
 
 // Función para actualizar el contenido del HTML con los datos del juego
@@ -48,7 +52,13 @@ function populateGameDetails(gameData) {
             secondaryImages[index].style.backgroundPosition = 'center';
         }
     });
+}
 
+// Llamar a getUrlParams cuando el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', () => {
+    const urlParams = getUrlParams();
+    populateGameDetails(urlParams);
+});
 
    
 
@@ -95,4 +105,4 @@ function populateGameDetails(gameData) {
         });
 });
    
-};
+

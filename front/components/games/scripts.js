@@ -15,6 +15,7 @@ function fetchGames() {
         .then(data => {
             if (Array.isArray(data)) {
                 createGameCards(data);
+                console.log('Games:', data);
             } else {
                 console.error('Expected an array but got:', data);
                 alert('Error: Received data is not in expected format.');
