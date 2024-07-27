@@ -1,4 +1,5 @@
 const {PrismaClient} = require('@prisma/client');
+const { isArray } = require('util');
 
 class GameServices{
     constructor(){
@@ -39,11 +40,13 @@ class GameServices{
     async getGamesByPage(categoriesFilter, nameFilter, page){
         const prisma = new PrismaClient();
         console.log(nameFilter)
+        console.log(nameFilter.name)
         console.log("page")
         console.log(page)
+        console.log(categoriesFilter)
         const search = [];
-
-        if(nameFilter && nameFilter.name != (undefined || "") ){ //ESTO GUARDA EL NOMBRE EN EL ARRAY DE BUSQUEDA FINAL
+        if(nameFilter != {} && nameFilter.name != undefined){ //ESTO GUARDA EL NOMBRE EN EL ARRAY DE BUSQUEDA FINAL
+            console.log("hola no deberias estar aca")
             search.push({
                 name: {contains: nameFilter.name, mode: "insensitive"}
             })
@@ -52,9 +55,22 @@ class GameServices{
         console.log(search)
 
         console.log(categoriesFilter)
+        console.log(categoriesFilter.length)
+        console.log(!Array.isArray(categoriesFilter))
 
-        if(categoriesFilter && categoriesFilter.length > 0){ //ESTO GUARDA LAS CATEGORIAS EN EL ARRAY DE BUSQUEDA FINAL  
-            console.log("pene")
+        if(categoriesFilter && !Array.isArray(categoriesFilter)){ //ESTO GUARDA LAS CATEGORIAS EN EL ARRAY DE BUSQUEDA FINAL
+            console.log("hola deberias estar aca")
+            search.push({
+                categories: {
+                    some: {
+                        name: {equals: categoriesFilter, mode: "insensitive"}
+                    }
+                }
+            })
+        }
+
+        if(categoriesFilter && Array.isArray(categoriesFilter)){ //ESTO GUARDA LAS CATEGORIAS EN EL ARRAY DE BUSQUEDA FINAL  
+            console.log("que pingo haces aca")
             search.push({
                 categories: {
                     some: {
