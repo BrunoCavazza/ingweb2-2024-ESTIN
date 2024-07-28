@@ -1,7 +1,3 @@
-
-function changeIframeSource(url) {
-    document.getElementById('MainContent').src = url;
-}
 const categories = [
     {name: "Action"}, {name: "Adventure"}, {name: "Casual"}, {name: "Indie"}, 
     {name: "Multiplayer"}, {name: "Racing"}, {name: "RPG"}, {name: "Simulation"}, 
@@ -17,32 +13,23 @@ const categories = [
     {name: "Open World"}, {name: "Zombies"}, {name: "RNG"}
 ];
 
-function changeIframeSource(url) {
-    // Almacenar la URL en sessionStorage
-    sessionStorage.setItem('selectedURL', url);
-
-    const iframe = document.getElementById('MainContent');
-    if (iframe) {
-        iframe.src = url;
-    } else {
-        console.error('Iframe con ID "MainContent" no encontrado.');
-    }
-}
-
-function createCategoryList(categories) {
-    const categoryList = document.getElementById('categoryList');
-    categories.forEach(category => {
-        const li = document.createElement('li');
-        li.className = 'tag__name';
-        li.textContent = category.name;
-        li.addEventListener('click', () => {
-            const selectedCategory = category.name;
-            console.log('Selected Category:', selectedCategory);
-            changeIframeSource('./front/components/buyGame/buyGame.html'); // Aquí se puede usar una lógica más avanzada para determinar la URL basada en la categoría
+    function createCategoryList(categories) {
+        const categoryList = document.getElementById('categoryList');
+        categories.forEach(category => {
+            const li = document.createElement('li');
+            li.className = 'tag__name';
+            li.textContent = category.name;
+            li.addEventListener('click', () => {
+                const selectedCategory = category.name;
+                const url = "../buyGame/buyGame.html";
+                console.log('Selected Category:', selectedCategory);
+                sessionStorage.setItem('selectedURL', url);
+                sessionStorage.setItem('selectedCategory', selectedCategory);
+                window.parent.postMessage('changeCategory', 'http://127.0.0.1:5500');
+            });
+            categoryList.appendChild(li);
         });
-        categoryList.appendChild(li);
-    });
-}
+    }
 
 document.addEventListener("DOMContentLoaded", function() {
     createCategoryList(categories);

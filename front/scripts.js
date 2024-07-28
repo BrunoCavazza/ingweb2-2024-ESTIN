@@ -66,39 +66,19 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.reload(); 
     }
 
-    // Leer la URL desde sessionStorage
-    const selectedURL = sessionStorage.getItem('selectedURL');
-    
-    if (selectedURL) {
-        console.log('URL seleccionada:', selectedURL);
-        document.getElementById('urlDisplay').textContent = `URL seleccionada: ${selectedURL}`;
-    } else {
-        console.log('No se encontró ninguna URL seleccionada en sessionStorage.');
-    }
-    
     window.addEventListener('message', function(event) {
-        if (event.origin !== window.location.origin && event.origin !== 'null') {
-            return;
-        }
-
-        const data = event.data;
-        if (data.url && data.category) {
-            console.log('Recibido mensaje con URL:', data.url, 'y categoría:', data.category);
-            changeIframeSource(data.url, data.category);
-        }
-    });
-    
-    function changeIframeSource(url, category) {
-        const iframe = document.getElementById('MainContent');
-        if (iframe) {
-            console.log('Cambiando fuente del iframe a:', url);
-            iframe.onload = function() {
-                console.log('Iframe cargado, enviando categoría:', category);
-                iframe.contentWindow.postMessage({ category: category }, '*');
-            };
-            iframe.src = url;
+        // Verifica el origen del mensaje por seguridad
+        if (event.origin === 'http://127.0.0.1:5500') {
+          if (event.data === 'changeCategory') {
+            changeCategory();
+          }
         } else {
-            console.error('Iframe con ID "MainContent" no encontrado.');
+          console.warn('Mensaje recibido de origen no permitido:', event.origin);
         }
+      });
+   
+    function changeCategory() {
+        const iframe = document.getElementById('MainContent');
+        iframe.src = './components/games/games.html';
     }
 });
