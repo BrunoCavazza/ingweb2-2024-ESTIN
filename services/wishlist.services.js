@@ -19,22 +19,31 @@ class WishlistServices{
         return wishlist;
     }
 
-    async addWish(userId, gameId){
+    async addWish(userId, gameName){
         const prisma = new PrismaClient();
         
         console.log("userId: " + userId);
         console.log("gameId: " + gameId);
 
+        const obtainedGame = await prisma.games.findUnique({
+            where: {
+                name: gameName
+            }
+        });
+
         const transactionCheck = await prisma.transaction.findFirst({
             where: {
                 user_id: userId,
-                game_id: gameId
+                game_id: obtainedGame.id
             }
         });
         
         if(transactionCheck){
             throw new Error("Ya tenes el juego comprado!");
         }
+
+        
+
         console.log("SEXO")
         const wishlist = await prisma.users.update({
             where: {
@@ -43,7 +52,7 @@ class WishlistServices{
             data: {
                 wishlist: {
                     connect: {
-                        id: gameId
+                        id: obtainedGame.id
                     }
                 }
             }
@@ -52,8 +61,15 @@ class WishlistServices{
         return wishlist;
     }
 
-    async deleteWish(userId, gameId){
+    async deleteWish(userId, gameName){
         const prisma = new PrismaClient();
+
+        const obtainedGame = await prisma.games.findUnique({
+            where: {
+                name: gameName
+            }
+        });
+
         const wishlist = await prisma.users.update({
             where: {
                 id: userId
@@ -61,7 +77,7 @@ class WishlistServices{
             data: {
                 wishlist: {
                     disconnect: {
-                        id: gameId
+                        id: obtainedGame.id
                     }
                 }
             }

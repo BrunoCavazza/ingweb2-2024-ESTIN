@@ -1,5 +1,4 @@
 const {PrismaClient} = require('@prisma/client');
-const { isArray } = require('util');
 
 class GameServices{
     constructor(){
@@ -74,7 +73,7 @@ class GameServices{
                     some: {
                         name: {in: categoriesFilter, mode: "insensitive"}
                     }
-                }
+                }   
             })  
         }
 
