@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalogin = document.getElementById('modalogin');
     const modalInstance = modalogin ? bootstrap.Modal.getInstance(modalogin) : null;
     const logoutButton = document.getElementById('logoutButton'); //logout button
+    const registerForm = document.getElementById('registerForm');
+    const registerButton = document.getElementById('registerButton');
 
     // Function to show logged in UI
     function showLoggedInUI(username) {
@@ -14,6 +16,42 @@ document.addEventListener('DOMContentLoaded', () => {
         userContainer.style.display = 'block';
         userNameElement.textContent = username;
     }
+
+    registerButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        const password = document.getElementById('registerPassword').value;
+        const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+        if (password !== confirmPassword) {
+            alert('Passwords do not match');
+            return;
+        }else{
+            const username = document.getElementById('registerUsername').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const role = document.getElementById('registerRole').value;
+            const data = { username, password, email, role };
+            fetch('http://localhost:3010/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (response.ok) {
+                    alert('User registered successfully');
+                    modalInstance.hide();
+                } else {
+                    response.json().then(data => {
+                        alert('Error: ' + data.error);
+                    });
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        };
+    });
+
 
     // Check if already logged in
     const token = sessionStorage.getItem('token');
@@ -71,14 +109,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.origin === 'http://127.0.0.1:5500') {
           if (event.data === 'changeCategory') {
             changeCategory();
+          } if (event.data === 'searchedGame') {
+            searchGame();
           }
         } else {
           console.warn('Mensaje recibido de origen no permitido:', event.origin);
         }
       });
    
+      
     function changeCategory() {
         const iframe = document.getElementById('MainContent');
         iframe.src = './components/games/games.html';
+    }
+    function searchGame() {
+        const iframe = document.getElementById('MainContent');
+        iframe.src = './components/games/games.html';
+        
+        iframe.onload = function() {
+            const iframeWindow = iframe.contentWindow;
+            if (iframeWindow && typeof iframeWindow.updateContent === 'searchGame') {
+                iframeWindow.updateContent();
+            }
+        };
     }
 });

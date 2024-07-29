@@ -82,8 +82,9 @@
       <div class=" column_categories">
 
         <!--Iframe izquierda -->
-        <iframe id="LeftContent" src="./components/categories/categories.html"  class="leftFrame" frameborder="0"></iframe>
-      
+        <iframe id="LeftContent" src="./components/categories/categories.html" class="leftFrame"
+          frameborder="0"></iframe>
+
       </div>
     </div>
     <div class="column right">
@@ -99,7 +100,8 @@
               <!-- Button trigger modal -->
               <div id="userContainer" style="display: none;">
                 <div class="dropdown-center" data-bs-theme="dark">
-                  <button id="userContainer" class="LoggedIn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button id="userContainer" class="LoggedIn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                     <h1 id="userName">USERNAME</h1>
                   </button>
                   <ul class="dropdown-menu">
@@ -108,10 +110,10 @@
                   </ul>
                 </div>
               </div>
-              
+
               </button>
               <button type="button" class="login" id="loginbtn" data-bs-toggle="modal" data-bs-target="#modalogin">
-                <strong class="pixel_font_login">Log in</strong>
+                <strong class="pixel_font_login">Account</strong>
                 <div id="container-stars">
                   <div id="stars"></div>
                 </div>
@@ -122,10 +124,11 @@
                 </div>
               </button>
 
-              
+
 
               <!-- Modal login -->
-              <div class="modal fade" id="modalogin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="modalogin" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
 
@@ -142,10 +145,12 @@
                         </div>
                         <center>
                           <a type="submit" id="loginButton" class="pixel_font">
-                            SEND
+                            Login
                             <span></span>
                           </a>
                         </center>
+                        <a id="loginButton" class="pixel_font" data-bs-toggle="modal"
+                          data-bs-target="#modalregister">Register</a>
                       </form>
                     </div>
 
@@ -153,8 +158,52 @@
                 </div>
               </div>
             </div>
+            <!-- Modal Register -->
+            <div class="modal fade" id="modalregister" tabindex="-1" aria-labelledby="exampleModalLabel"
+              aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+
+                  <div class="login-box">
+                    <form id="loginForm">
+                      <div class="user-box">
+                        <input type="text" name="User" required id="registerUsername">
+                        <label class="pixel_font">Username</label>
+                      </div>
+                      <div class="user-box">
+                        <input type="password" name="password" required id="registerPassword">
+                        <label class="pixel_font">Password</label>
+                      </div>
+                      <div class="user-box">
+                        <input type="password" name="passwordConf" required id="registerConfirmPassword">
+                        <label class="pixel_font">Confirm Password</label>
+                      </div>
+                      <div class="user-box">
+                        <input type="email" required="" id="registerEmail" name="email" required>
+                        <label for="registerEmail">Email</label>
+                      </div>
+                      <div class="user-box">
+                        <select class="form-select pixel_font bg-dark" aria-label="Default select example" id="registerRole">
+                          <option value="customer" class="pixel_font">Customer</option>
+                          <option value="provider" class="pixel_font">Provider</option>
+                        </select>
+                      </div>
+                      <center>
+                        <a type="submit" id="registerButton" class="pixel_font">
+                          Register
+                          <span></span>
+                        </a>
+                      </center>
+                    </form>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
             <!-- aca elementos del medio-->
-            <iframe id="MainContent" name="MainContent" class="bigFrame" src="./components/inicio/inicio.html" frameborder="0">
+            <iframe id="MainContent" name="MainContent" class="bigFrame" src="./components/inicio/inicio.html"
+              frameborder="0">
             </iframe>
 
           </div>

@@ -9,7 +9,7 @@ function getUrlParams() {
         pictures: params.get('pictures') ? params.get('pictures').split(',') : [],
         categories: params.get('categories') ? params.get('categories').split(',') : [],
         price: params.get('price'),
-        id: params.get('id')
+        id: params.get('id'),
     };
 
     console.log('URL Parameters:', urlParams);
@@ -62,11 +62,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
    
 
-    async function buyGame(receiverName, gameId) {
-        const url = 'http://localhost:3010/games/buyGame';
+    async function buyGame(token, receiverName, gameId) {
+        const url = 'http://localhost:3010/buyGame';
         const data = {
             receiverName: receiverName,
-            gameId: gameId
+            gameId: gameId,
+            id: token
         };
     
         try {
@@ -91,10 +92,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     document.querySelector('.BuyButton').addEventListener('click', function() {
-        const gameId = gameData.id;
+        const idparams = new URLSearchParams(window.location.search);
+        const gameId =  {id: idparams.get('id')};
         const receiverName = sessionStorage.getItem('username');
+        const token = sessionStorage.getItem('token');
+        console.log("id", gameId);
 
-        buyGame(receiverName, gameId)
+        buyGame( token, receiverName, gameId)
         .then(result => {
             // Manejar la respuesta aquí
             console.log('Respuesta del servidor:', result);
