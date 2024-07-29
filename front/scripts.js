@@ -15,7 +15,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modalInstance) modalInstance.hide();
         userContainer.style.display = 'block';
         userNameElement.textContent = username;
+        if(sessionStorage.getItem('role') === 'provider') {
+            document.getElementById('libraryButton').style.display = 'none';
+        }
+        if(sessionStorage.getItem('role') === 'customer') {
+            document.getElementById('newGameButton').style.display = 'none';
+        }
     }
+    
 
     registerButton.addEventListener('click', function (event) {
         event.preventDefault();
@@ -41,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     alert('User registered successfully');
                     modalInstance.hide();
-                } else {
+                } else {    
                     response.json().then(data => {
                         alert('Error: ' + data.error);
                     });
@@ -82,6 +89,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Token saved:', data.token);
                 sessionStorage.setItem('token', data.token);
                 sessionStorage.setItem('username', username); 
+                sessionStorage.setItem('role', data.role);
+                console.log(data);
                 showLoggedInUI(username);
             } else {
                 alert('Error: ' + data.error);
@@ -102,6 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
         loginbtn.style.display = 'block'; 
         userContainer.style.display = 'none'; 
         window.location.reload(); 
+        document.getElementById('libraryButton').style.display = 'block';
+        document.getElementById('newGameButton').style.display = 'block';
     }
 
     window.addEventListener('message', function(event) {
@@ -134,3 +145,37 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 });
+
+function updateIframes() {
+    const leftFrame = document.getElementById('LeftContent');
+    const mainFrame = document.getElementById('MainContent');
+
+    leftFrame.src = './components/libraryLeft/libraryLeft.html';
+    mainFrame.src = '';
+}
+
+// Add event listener to the Library button
+document.getElementById('libraryButton').addEventListener('click', updateIframes);
+
+function updateIframesHome() {
+    const leftFrame = document.getElementById('LeftContent');
+    const mainFrame = document.getElementById('MainContent');
+
+    leftFrame.src = './components/categories/categories.html';
+    mainFrame.src = './components/inicio/inicio.html';
+}
+
+// Add event listener to the Library button
+document.getElementById('homeButton').addEventListener('click', updateIframesHome);
+
+
+function updateIframesnewGame() {
+    const leftFrame = document.getElementById('LeftContent');
+    const mainFrame = document.getElementById('MainContent');
+
+    leftFrame.src = '';
+    mainFrame.src = './components/newGame/newGame.html';
+}
+
+// Add event listener to the Library button
+document.getElementById('newGameButton').addEventListener('click', updateIframesnewGame);

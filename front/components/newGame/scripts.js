@@ -3,7 +3,6 @@ function submitForm() {
     const name = document.getElementById('name').value;
     const description = document.getElementById('description').value;
     const price = document.getElementById('price').value;
-    const owner = document.getElementById('owner').value;
     const mainPicture = document.getElementById('mainPicture').value;
     const pictures = document.getElementById('pictures').value.split(',').map(p => p.trim());
     const categories = document.getElementById('categories').value.split(',').map(c => c.trim());
@@ -21,8 +20,7 @@ function submitForm() {
     const gameData = {
         name: name,
         description: description,
-        price: parseInt(price),
-        owner: owner,
+        price: parseFloat(price),
         mainPicture: mainPicture,
         pictures: pictures,
         categories: categories
@@ -36,6 +34,7 @@ function submitForm() {
         headers: {
             'Content-Type': 'application/json',
             'tokenauth': `${hash}`
+        
         },
         body: body
         
@@ -47,7 +46,7 @@ function submitForm() {
     })
     .catch((error) => {
         console.error('Error:', error);
-        alert('Game uploaded successfully!');
+        alert('Error uploading game.');
     });
 }
  

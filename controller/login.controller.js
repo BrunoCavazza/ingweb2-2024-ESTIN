@@ -32,7 +32,7 @@ const authentication = async (req, res) =>{
         console.log("rol cheto: "+ decodedToken.role)
 
 
-        return res.status(200).json({message: decodedToken.role + " autentificado", token: token});
+        return res.status(200).json({message: decodedToken.role + " autentificado", token: token, role: decodedToken.role});
         
 
         /*const verifier = await verifyPassword(provider.password, password);

@@ -44,13 +44,17 @@ class ProviderServices {
             return 1;
         }
         console.log("SEXO2")
-
+        const user = await prisma.users.findUnique({
+            where: {
+                id: ownerId
+            }   
+        });
         const game = await prisma.games.create({
             data: {
                 name: newGame.name,
                 description: newGame.description,
                 price: newGame.price,
-                owner: ownerId,
+                owner: user.username,
                 mainPicture: newGame.mainPicture,
                 pictures: newGame.pictures,
                 categories: {

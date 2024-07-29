@@ -4,10 +4,31 @@ class TransactionServices{
     constructor(){
     }
 
-    async buyGame(senderId, receiverName, gameId){
+    async buyGame(senderId, receiverName, gameName){
         const prisma = new PrismaClient.PrismaClient();
+        console.log("hola")
+        console.log("SEXO1")
+        console.log(senderId)
+        console.log("SEXO2")
+        console.log(receiverName)
+        console.log("SEXO3")
+        console.log(gameName)
 
+
+        let obtainedGame = await prisma.games.findUnique({
+            where:{
+                name: gameName
+            },
+            
+        })
+        console.log(obtainedGame)
+
+        let gameId = obtainedGame.id;
+        console.log(gameId)
         try {
+
+            
+
 
             let gameCheck = await prisma.transaction.findFirst({
                 where:{
@@ -15,6 +36,7 @@ class TransactionServices{
                     game_id: gameId
                 }
             })
+            console.log( gameCheck)
             if(gameCheck){
                 return 1;
             }
@@ -27,7 +49,7 @@ class TransactionServices{
                     username: true
                 }
             })
-
+            console.log(userCheck)
             if(userCheck.username === receiverName){
                 return 3;
             }
@@ -123,7 +145,6 @@ class TransactionServices{
             console.log(error)
         }
     }
-
 
     async refundGame(senderId, receiverId, gameId){
         const prisma = new PrismaClient.PrismaClient();

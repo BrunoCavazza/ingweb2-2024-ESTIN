@@ -1,10 +1,13 @@
+let currentPage = 1;
+let pageAmount = 2;  // Asegúrate de actualizar esto según la respuesta del servidor
+
 document.addEventListener("DOMContentLoaded", function () {
-    fetchGames();
+    fetchGames(currentPage);
+    setupPaginator();
 });
 
-function fetchGames() {
-    const page = 1; 
-    const url = 'http://localhost:3010/games/search/?page=' + page + "&category=" + sessionStorage.getItem('selectedCategory'); 
+function fetchGames(page) {
+    const url = 'http://localhost:3010/games/search/?page=' + page + "&category=" + sessionStorage.getItem('selectedCategory');
     console.log('Fetching games from:', url);
     fetch(url)
         .then(response => {
@@ -17,6 +20,8 @@ function fetchGames() {
             console.log('Received data:', data);  // Log the received data
             if (data && Array.isArray(data.game)) {
                 createGameCards(data.game);
+                pageAmount = data.pageAmount; // Update the total pages
+                setupPaginator();
                 console.log('Games:', data.game);
             } else {
                 console.error('Expected an array but got:', data);
@@ -68,8 +73,9 @@ function createGameCards(games) {
                 pictures: game.pictures.join(','), 
                 categories: game.categories.join(','), 
                 price: game.price,
-                id: game.id
             };
+            sessionStorage.setItem('gameId', game.id);
+            sessionStorage.setItem('gameOwner', game.owner);
             changeIframeBtn('../buyGame/buyGame.html', gameInfo);
         };
         button.innerHTML = `
@@ -87,6 +93,64 @@ function createGameCards(games) {
         col.appendChild(card);
         gamesRow.appendChild(col);
     });
+}
+
+function setupPaginator() {
+    const paginator = document.querySelector('.pagination');
+    paginator.innerHTML = '';
+
+    const prevPage = document.createElement('li');
+    prevPage.className = 'page-item';
+    const prevLink = document.createElement('a');
+    prevLink.className = 'page-link PaginatorFont';
+    prevLink.href = '#';
+    prevLink.setAttribute('aria-label', 'Previous');
+    prevLink.innerHTML = '<span aria-hidden="true">«</span>';
+    prevLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (currentPage > 1) {
+            currentPage--;
+            fetchGames(currentPage);
+        }
+    });
+    prevPage.appendChild(prevLink);
+    paginator.appendChild(prevPage);
+
+    for (let i = 1; i <= pageAmount; i++) {
+        const pageItem = document.createElement('li');
+        pageItem.className = 'page-item';
+        if (i === currentPage) {
+            pageItem.classList.add('active');
+        }
+        const pageLink = document.createElement('a');
+        pageLink.className = 'page-link PaginatorFont';
+        pageLink.href = '#';
+        pageLink.textContent = i;
+        pageLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            currentPage = i;
+            fetchGames(currentPage);
+        });
+        pageItem.appendChild(pageLink);
+        paginator.appendChild(pageItem);
+    }
+
+    const nextPage = document.createElement('li');
+    nextPage.className = 'page-item';
+    const nextLink = document.createElement('a');
+    nextLink.className = 'page-link PaginatorFont';
+    nextLink.href = '#';
+    nextLink.setAttribute('aria-label', 'Next');
+    nextLink.innerHTML = '<span aria-hidden="true">»</span>';
+    nextLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        if (currentPage < pageAmount) {
+            currentPage++;
+            fetchGames(currentPage);
+        }
+    });
+    nextPage.appendChild(nextLink);
+    paginator.appendChild(nextPage);
 }
 
 function callSearchGame() {
@@ -108,7 +172,6 @@ function searchGame() {
     console.log("ENtre");
     if (!gameName) {
         console.error('No game name found in sessionStorage');
-        
         return;
     }
 

@@ -9,8 +9,8 @@ const buyGame = async (req, res) => {
     console.log(decodedToken)*/
     
     try {
-        const successTransac = await transactionService.buyGame(req.token.id, parseInt(req.query.receiverName), parseInt(req.query.gameId));
-                                                            //ACORDARSE DE CAMBIAR A REQ.TOKEN.SENDERID
+        const successTransac = await transactionService.buyGame(req.token.id, req.body.receiverName, req.body.gameName);          
+                                         //ACORDARSE DE CAMBIAR A REQ.TOKEN.SENDERID
 
         if(successTransac === 1){
             res.status(400).json({message: "Ya tenes el juego en biblioteca!"});

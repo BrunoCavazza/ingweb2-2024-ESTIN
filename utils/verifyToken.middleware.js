@@ -62,5 +62,29 @@ const verifyCustomer = (req, res, next) => {
 
     }
 }
+const verifyAny = (req, res, next) => {
+    const token = req.headers.tokenauth;
+    console.log("token de header verifyAny: "+token)
+    console.log("token de header decodificado verifyAny: "+jwt.decode(token, JWT_SECRET))
+    
+    if(!token){
+        return res.status(403).json({message: "NO AUTORIZADO"})
+    }
+    try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        if(decoded.role === 'customer'){
+            req.token = decoded;
+            console.log("TOKEN DECODIFICADO EN VERIFY")
+            console.log(req.token)
+            next();
+        }else{
+            return res.status(403).json({message: "Usuario no autorizado."})
+        }
 
-module.exports = {generateToken, verifyCustomer, verifyProvider};
+    } catch (error) {
+        return res.status(403).json({message: "Usuario no autorizado."})
+
+    }
+}
+
+module.exports = {generateToken, verifyCustomer, verifyProvider, verifyAny};

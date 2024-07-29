@@ -92,7 +92,7 @@
         <div class="container text-center">
           <div class="row">
             <div class="col-sm-8">
-              <a href="./components/inicio/inicio.html" target="MainContent" style="text-decoration: none;">
+              <a id="homeButton" style="text-decoration: none;">
                 <h1 class="pixel_font_title">ESTIN</h1>
               </a>
             </div>
@@ -104,8 +104,9 @@
                     aria-expanded="false">
                     <h1 id="userName">USERNAME</h1>
                   </button>
-                  <ul class="dropdown-menu">
-                    <li><button class="UserItem dropdown-item" type="button">Library</button></li>
+                  <ul class="dropdown-menu"> 
+                    <li><button id="libraryButton" class="UserItem dropdown-item" type="button">Library</button></li>
+                    <li><button id="newGameButton" class="UserItem dropdown-item" type="button">Upload Game</button></li>
                     <li><button id="logoutButton" class="UserItem dropdown-item" type="button">Logout</button></li>
                   </ul>
                 </div>

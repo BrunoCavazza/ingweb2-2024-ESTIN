@@ -60,53 +60,47 @@ document.addEventListener('DOMContentLoaded', () => {
     populateGameDetails(urlParams);
 });
 
-   
+async function buyGame(hash, receiverName, gameName) {
+    try {
+        const response = await fetch('http://localhost:3010/buyGame', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'tokenauth': `${hash}`
+            },
+            body: JSON.stringify({ gameName, receiverName })
+        });
 
-    async function buyGame(token, receiverName, gameId) {
-        const url = 'http://localhost:3010/buyGame';
-        const data = {
-            receiverName: receiverName,
-            gameId: gameId,
-            id: token
-        };
-    
-        try {
-            const response = await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-    
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-    
-            const result = await response.json();
-            console.log('Success:', result);
-            return result;
-        } catch (error) {
-            console.error('Error:', error);
-            throw error;
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, details: ${errorText}`);
         }
-    }
-    document.querySelector('.BuyButton').addEventListener('click', function() {
-        const idparams = new URLSearchParams(window.location.search);
-        const gameId =  {id: idparams.get('id')};
-        const receiverName = sessionStorage.getItem('username');
-        const token = sessionStorage.getItem('token');
-        console.log("id", gameId);
 
-        buyGame( token, receiverName, gameId)
+        const result = await response.json();
+        console.log('Success:', result);
+        return result;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+document.querySelector('.BuyButton').addEventListener('click', function() {
+    const gameName = document.querySelector('.GameName').textContent;
+    const receiverName = sessionStorage.getItem('gameOwner');
+    const token = sessionStorage.getItem('token');
+    console.log( receiverName, gameName, token);
+
+    if (!gameName || !receiverName || !token) {
+        console.error('Missing required parameters: gameName, receiverName, or token.');
+        return;
+    }
+
+    buyGame(token, receiverName, gameName)
         .then(result => {
-            // Manejar la respuesta aquí
-            console.log('Respuesta del servidor:', result);
+            console.log('Game purchase successful:', result);
         })
         .catch(error => {
-            // Manejar el error aquí
-            console.error('Error en la solicitud:', error);
+            console.error('Game purchase failed:', error);
         });
 });
-   
-
