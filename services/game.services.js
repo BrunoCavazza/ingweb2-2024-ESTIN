@@ -75,10 +75,8 @@ class GameServices{
                         }
                     }
 
-                }   
-            })  
-  //ver aca
-                })
+                });   
+                         
             }
     
             console.log("SEARCH2")
