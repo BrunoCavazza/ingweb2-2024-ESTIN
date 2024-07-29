@@ -1,5 +1,4 @@
 const {PrismaClient} = require('@prisma/client');
-const { isArray } = require('util');
 
 class GameServices{
     constructor(){
@@ -75,6 +74,10 @@ class GameServices{
                             name: {in: categoriesFilter, mode: "insensitive"}
                         }
                     }
+
+                }   
+            })  
+  //ver aca
                 })
             }
     
@@ -113,6 +116,7 @@ class GameServices{
             console.log("QUE PORONGA SE CREA ACA")
             console.log(game)
             return {game, pageAmount};
+
         }
 
     async getHomePage(){

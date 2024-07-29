@@ -12,7 +12,7 @@ const getWishlist = async (req, res) => {
 
 const addWish = async (req, res) => {
     try {
-        const response = await wishlistService.addWish(req.token.id, parseInt(req.query.gameId));
+        const response = await wishlistService.addWish(req.token.id, parseInt(req.query.gameName));
         res.status(200).json({message: 'Juego agregado a la wishlist', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});
@@ -21,7 +21,7 @@ const addWish = async (req, res) => {
 
 const deleteWish = async (req, res) => {
     try {
-        const response = await wishlistService.deleteWish(req.token.id, parseInt(req.query.gameId));
+        const response = await wishlistService.deleteWish(req.token.id, parseInt(req.query.gameName));
         res.status(200).json({message: 'Juego eliminado de la wishlist', data: response});
     } catch (error) {
         res.status(500).send({message: error.message});
