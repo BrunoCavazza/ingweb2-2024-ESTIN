@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function fetchGames() {
-    const url = 'http://localhost:3010/games/';
+    const page = 1; 
+    const url = 'http://localhost:3010/games/search/?page=' + page + "&category=" + sessionStorage.getItem('selectedCategory'); 
+    console.log('Fetching games from:', url);
     fetch(url)
         .then(response => {
             if (!response.ok) {
@@ -12,8 +14,10 @@ function fetchGames() {
             return response.json();
         })
         .then(data => {
-            if (Array.isArray(data)) {
-                createGameCards(data);
+            console.log('Received data:', data);  // Log the received data
+            if (data && Array.isArray(data.game)) {
+                createGameCards(data.game);
+                console.log('Games:', data.game);
             } else {
                 console.error('Expected an array but got:', data);
                 alert('Error: Received data is not in expected format.');
@@ -54,27 +58,25 @@ function createGameCards(games) {
         gameButton.className = 'GameButton';
 
         const button = document.createElement('button');
-button.className = 'buy';
-button.onclick = function() {
-   
-    const gameInfo = {
-        name: game.name,
-        description: game.description,
-        owner: game.owner,
-        mainPicture: game.mainPicture,
-        pictures: game.pictures.join(','), 
-        categories: game.categories.join(','), 
-        price: game.price,
-        id: game.id
-    };
-   
-    changeIframeBtn('../buyGame/buyGame.html', gameInfo);
-};
-button.innerHTML = `
-    <span class="shadow"></span>
-    <span class="edge"></span>
-    <span class="front text">View</span>
-`;
+        button.className = 'buy';
+        button.onclick = function() {
+            const gameInfo = {
+                name: game.name,
+                description: game.description,
+                owner: game.owner,
+                mainPicture: game.mainPicture,
+                pictures: game.pictures.join(','), 
+                categories: game.categories.join(','), 
+                price: game.price,
+                id: game.id
+            };
+            changeIframeBtn('../buyGame/buyGame.html', gameInfo);
+        };
+        button.innerHTML = `
+            <span class="shadow"></span>
+            <span class="edge"></span>
+            <span class="front text">View</span>
+        `;
 
         gameButton.appendChild(button);
         cardBody.appendChild(gameName);
@@ -85,6 +87,49 @@ button.innerHTML = `
         col.appendChild(card);
         gamesRow.appendChild(col);
     });
+}
+
+function callSearchGame() {
+    console.log('Calling searchGame from iframe');
+    if (window.parent && typeof window.parent.searchGame === 'function') {
+        window.parent.searchGame();
+    } else {
+        console.error('searchGame function not found in parent window');
+    }
+}
+
+window.onload = function() {
+    console.log('Iframe loaded');
+    callSearchGame();
+};
+
+function searchGame() {
+    const gameName = sessionStorage.getItem('searchedGame');
+    console.log("ENtre");
+    if (!gameName) {
+        console.error('No game name found in sessionStorage');
+        
+        return;
+    }
+
+    // Construir la URL con el nombre del juego
+    const urlSearch = `http://localhost:3010/games/game/${encodeURIComponent(gameName)}`;
+    console.log('Searching game:', gameName, 'at:', urlSearch);
+    // Hacer la solicitud fetch a la URL construida
+    fetch(urlSearch)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Searched Game data:', data);
+            createGameCards(data);
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
 }
 
 function changeIframeBtn(url, gameInfo) {

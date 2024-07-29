@@ -1,7 +1,7 @@
 // Función para obtener los parámetros de la URL
 function getUrlParams() {
     const params = new URLSearchParams(window.location.search);
-    return {
+    const urlParams = {
         name: params.get('name'),
         description: params.get('description'),
         owner: params.get('owner'),
@@ -9,8 +9,12 @@ function getUrlParams() {
         pictures: params.get('pictures') ? params.get('pictures').split(',') : [],
         categories: params.get('categories') ? params.get('categories').split(',') : [],
         price: params.get('price'),
-        id: params.get('id')
+        id: params.get('id'),
     };
+
+    console.log('URL Parameters:', urlParams);
+
+    return urlParams;
 }
 
 // Función para actualizar el contenido del HTML con los datos del juego
@@ -48,17 +52,61 @@ function populateGameDetails(gameData) {
             secondaryImages[index].style.backgroundPosition = 'center';
         }
     });
-
-    // Configurar el botón de compra
-    const buyButton = document.querySelector('.BuyButton');
-    buyButton.onclick = function() {
-        alert(`You are buying: ${gameData.name} for ${gameData.price}$`);
-        // Aquí puedes agregar la lógica para el proceso de compra
-    };
 }
 
-// Ejecutar la función para obtener los parámetros y actualizar el contenido
+// Llamar a getUrlParams cuando el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', () => {
-    const gameData = getUrlParams();
-    populateGameDetails(gameData);
+    const urlParams = getUrlParams();
+    populateGameDetails(urlParams);
 });
+
+   
+
+    async function buyGame(token, receiverName, gameId) {
+        const url = 'http://localhost:3010/buyGame';
+        const data = {
+            receiverName: receiverName,
+            gameId: gameId,
+            id: token
+        };
+    
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const result = await response.json();
+            console.log('Success:', result);
+            return result;
+        } catch (error) {
+            console.error('Error:', error);
+            throw error;
+        }
+    }
+    document.querySelector('.BuyButton').addEventListener('click', function() {
+        const idparams = new URLSearchParams(window.location.search);
+        const gameId =  {id: idparams.get('id')};
+        const receiverName = sessionStorage.getItem('username');
+        const token = sessionStorage.getItem('token');
+        console.log("id", gameId);
+
+        buyGame( token, receiverName, gameId)
+        .then(result => {
+            // Manejar la respuesta aquí
+            console.log('Respuesta del servidor:', result);
+        })
+        .catch(error => {
+            // Manejar el error aquí
+            console.error('Error en la solicitud:', error);
+        });
+});
+   
+

@@ -81,10 +81,22 @@ body {
     position: relative;
     font-optical-sizing: auto;
     font-style: normal;
-    font-size: 200%;
+    font-size: 160%;
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 50px;
+}
+
+.Paginator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+.PaginatorFont{
+    color: #ff00ff;
+    font-family: "Pixelify Sans", sans-serif;
 }
 
 .GameDetail {
@@ -93,7 +105,7 @@ body {
     position: relative;
     font-optical-sizing: auto;
     font-style: normal;
-    font-size: 180%;
+    font-size: 200%;
     display: flex;
     justify-content: center;
     align-items: center;
