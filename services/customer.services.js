@@ -16,16 +16,24 @@ class CustomerServices {
     }
 
     async getCustomerLibrary(userId){
+        console.log("savdbjkvnskdjnvjlnasfkls hola");
         const prisma = new PrismaClient();
-        const library = prisma.transaction.findMany({
+        console.log(userId);
+        const library = await prisma.transaction.findMany({
             where: {
-                user_id: userId,
-                include: {
-                    games: true
+                user_id: userId 
+            },  
+             include: {
+                    game: true
                 }
+                
+                
             }
-        });
-        return library;
+        );
+        console.log(library);
+        const games = library.map(game => game.game);
+        return games;
+
     }
 
 }

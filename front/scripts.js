@@ -120,11 +120,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (event.origin === 'http://127.0.0.1:5500') {
           if (event.data === 'changeCategory') {
             changeCategory();
-          } if (event.data === 'searchedGame') {
+          } if (event.data === 'searchGame') {
             searchGame();
-          }
+          } if (event.data === 'changeGame') {
+            changeGame();
         } else {
           console.warn('Mensaje recibido de origen no permitido:', event.origin);
+        }
         }
       });
    
@@ -133,18 +135,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const iframe = document.getElementById('MainContent');
         iframe.src = './components/games/games.html';
     }
+    function changeGame() {
+        const iframe = document.getElementById('MainContent');
+        iframe.src = './components/library/library.html';
+    }
     function searchGame() {
         const iframe = document.getElementById('MainContent');
-        iframe.src = './components/games/games.html';
+        iframe.src = './components/buyGame/buyGame.html';
         
         iframe.onload = function() {
-            const iframeWindow = iframe.contentWindow;
-            if (iframeWindow && typeof iframeWindow.updateContent === 'searchGame') {
-                iframeWindow.updateContent();
-            }
-        };
+            iframe.contentWindow.postMessage('searchedGame', 'http://127.0.0.1:5500 ');
     }
-});
+    
+};
 
 function updateIframes() {
     const leftFrame = document.getElementById('LeftContent');
@@ -178,4 +181,4 @@ function updateIframesnewGame() {
 }
 
 // Add event listener to the Library button
-document.getElementById('newGameButton').addEventListener('click', updateIframesnewGame);
+document.getElementById('newGameButton').addEventListener('click', updateIframesnewGame)});

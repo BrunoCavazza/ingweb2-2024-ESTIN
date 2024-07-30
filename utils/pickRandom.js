@@ -24,7 +24,7 @@ async function pickRandom(){
     console.log("shuffled:")
     console.log(shuffledGames)
 
-    const selectedGames = shuffledGames.slice(0, 9);
+    const selectedGames = shuffledGames.slice(0, 11);
     console.log("selected:")
     console.log(selectedGames)
 

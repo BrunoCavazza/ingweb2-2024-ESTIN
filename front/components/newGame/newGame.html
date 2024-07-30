@@ -22,28 +22,44 @@
     <form>
         <div class="form-group MTop">
             <label for="name "><h4 class="pixelFontName">Name</h4></label>
-            <input type="text" class="form-control pixelFont" id="name" placeholder="Nombre del juego">
+            <input type="text" class="form-control pixelFont" id="name" placeholder="Game Name">
         </div>
         <div class="form-group MTop">
             <label for="description"><h4 class="pixelFontName">Desciption</h4></label>
-            <textarea class="form-control pixelFont" id="description" rows="3" placeholder="Descripción del juego"></textarea>
+            <textarea class="form-control pixelFont" id="description" rows="3" placeholder="Game description"></textarea>
         </div>
         <div class="form-group MTop">
             <label for="price"><h4 class="pixelFontName">Price</h4></label>
-            <input type="number" class="form-control pixelFont" id="price" placeholder="Precio del juego">
+            <input type="number" class="form-control pixelFont" id="price" placeholder="Game Price">
         </div>
         <div class="form-group MTop">
             <label for="mainPicture"><h4 class="pixelFontName">Main Image</h4></label>
-            <input type="url" class="form-control pixelFont" id="mainPicture" placeholder="URL de la imagen principal">
+            <input type="url" class="form-control pixelFont" id="mainPicture" placeholder="URL main picture">
         </div>
         <div class="form-group MTop">
             <label for="pictures"><h4 class="pixelFontName">Secondary Images</h4></label>
-            <textarea class="form-control pixelFont" id="pictures" rows="3" placeholder="URLs de imágenes adicionales, separadas por comas"></textarea>
+            <textarea class="form-control pixelFont" id="pictures" rows="3" placeholder="URLs secondary pictures (separated with , )"></textarea>
         </div>
+       
         <div class="form-group MTop">
+          
             <label for="categories"><h4 class="pixelFontName">Categories</h4></label>
-            <textarea class="form-control pixelFont" id="categories" rows="3" placeholder="Nombre de las categorias, separadas por comas"></textarea>
-        </div>
+
+            <select id="category1" class="form-select pixelFont" aria-label="Default select example" style="margin-bottom: 15px;">
+              <option selected>Add Category</option>
+            </select>
+
+            <select id="category2" class="form-select pixelFont" aria-label="Default select example" style="margin-bottom: 15px;">
+              <option selected>Add Category</option>
+            </select>
+            <select id="category3" class="form-select pixelFont" aria-label="Default select example" style="margin-bottom: 15px;">
+              <option selected>Add Category</option>
+            </select>
+            <select id="category4" class="form-select pixelFont" aria-label="Default select example" style="margin-bottom: 15px;">
+              <option selected>Add Category</option>
+            </select>
+            </div>
+            
         <div type="button" class="buy" onclick="submitForm()">      
           <button class="buy">
           <span class="shadow"></span>

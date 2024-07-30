@@ -10,8 +10,7 @@ function generateToken(user, role){
 }
 
 const verifyProvider = (req, res, next) => {
-    console.log(req.headers)
-    console.log(req.headers.tokenauth)
+    
     const token = req.headers.tokenauth;
     console.log("token de header verifyProv: "+token)
     console.log("token de header decodificado verifyProv: "+jwt.decode(token, JWT_SECRET))
@@ -38,30 +37,40 @@ const verifyProvider = (req, res, next) => {
     }
 }
 
+
 const verifyCustomer = (req, res, next) => {
+    console.log("req.headers")
+    console.log(req.headers)
+    console.log("req.headers.tokenauth")
+    console.log(req.headers.tokenauth)
     const token = req.headers.tokenauth;
-    console.log("token de header verifyCust: "+token)
-    console.log("token de header decodificado verifyCust: "+jwt.decode(token, JWT_SECRET))
-    
-    if(!token){
-        return res.status(403).json({message: "NO AUTORIZADO"})
+    console.log("token de header verifyCust: " + token);
+
+    if (!token) {
+        console.log("Token is missing from headers.");
+        return res.status(403).json({ message: "NO AUTORIZADO" });
     }
+
     try {
+        console.log("OPA ME METI EN EL TRY");
         const decoded = jwt.verify(token, JWT_SECRET);
-        if(decoded.role === 'customer'){
+        console.log("token de header decodificado verifyCust: " + JSON.stringify(decoded));
+
+        if (decoded.role === 'customer') {
             req.token = decoded;
-            console.log("TOKEN DECODIFICADO EN VERIFY")
-            console.log(req.token)
+            console.log("TOKEN DECODIFICADO EN VERIFY");
+            console.log(req.token);
             next();
-        }else{
-            return res.status(403).json({message: "Usuario no autorizado."})
+        } else {
+            return res.status(403).json({ message: "Usuario no autorizado." });
         }
-
     } catch (error) {
-        return res.status(403).json({message: "Usuario no autorizado."})
-
+        console.error("Error decoding token:", error);
+        return res.status(403).json({ message: "Usuario no autorizado." });
     }
-}
+};
+
+module.exports = verifyCustomer;
 const verifyAny = (req, res, next) => {
     const token = req.headers.tokenauth;
     console.log("token de header verifyAny: "+token)
@@ -80,7 +89,7 @@ const verifyAny = (req, res, next) => {
         }else{
             return res.status(403).json({message: "Usuario no autorizado."})
         }
-
+        
     } catch (error) {
         return res.status(403).json({message: "Usuario no autorizado."})
 

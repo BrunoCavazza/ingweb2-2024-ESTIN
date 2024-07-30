@@ -153,47 +153,6 @@ function setupPaginator() {
     paginator.appendChild(nextPage);
 }
 
-function callSearchGame() {
-    console.log('Calling searchGame from iframe');
-    if (window.parent && typeof window.parent.searchGame === 'function') {
-        window.parent.searchGame();
-    } else {
-        console.error('searchGame function not found in parent window');
-    }
-}
-
-window.onload = function() {
-    console.log('Iframe loaded');
-    callSearchGame();
-};
-
-function searchGame() {
-    const gameName = sessionStorage.getItem('searchedGame');
-    console.log("ENtre");
-    if (!gameName) {
-        console.error('No game name found in sessionStorage');
-        return;
-    }
-
-    // Construir la URL con el nombre del juego
-    const urlSearch = `http://localhost:3010/games/game/${encodeURIComponent(gameName)}`;
-    console.log('Searching game:', gameName, 'at:', urlSearch);
-    // Hacer la solicitud fetch a la URL construida
-    fetch(urlSearch)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Searched Game data:', data);
-            createGameCards(data);
-        })
-        .catch(error => {
-            console.error('There has been a problem with your fetch operation:', error);
-        });
-}
 
 function changeIframeBtn(url, gameInfo) {
     const params = new URLSearchParams(gameInfo).toString();

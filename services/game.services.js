@@ -86,7 +86,7 @@ class GameServices{
             console.log("where:")
             console.log(where)
     
-            const pageSize = parseInt(10)
+            const pageSize = parseInt(9)
             const skip = parseInt((page-1) * pageSize)
     
     

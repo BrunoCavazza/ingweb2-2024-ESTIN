@@ -7,7 +7,7 @@ const customer = require ("../router/customer.router")
 const provider = require ("../router/provider.router")
 
 router
-    .use("/myLibrary", verifyToken.verifyCustomer, customer)
+    .use(customer)
     .use("/myGames", verifyToken.verifyProvider, provider)
 
 module.exports = router;
